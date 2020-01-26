@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Using PowervRNI to Quickly Add Applications · PowervRNI</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Applications"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Using PowervRNI to Quickly Add Applications · PowervRNI"/><meta property="og:type" content="website"/><meta property="og:url" content="https://powervrni.github.io/blog/2018/02/12/applications"/><meta property="og:description" content="## Applications"/><meta property="og:image" content="https://powervrni.github.io/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://powervrni.github.io/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/powervrni-logo.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://powervrni.github.io/blog/atom.xml" title="PowervRNI Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://powervrni.github.io/blog/feed.xml" title="PowervRNI Blog RSS Feed"/><script type="text/javascript" src="/static/js/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/powervrni-logo.png" alt="PowervRNI"/><h2 class="headerTitleWithLogo">PowervRNI</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/getting-started" target="_self">Getting Started</a></li><li class=""><a href="/docs/examples" target="_self">Examples</a></li><li class=""><a href="/docs/videos" target="_self">Videos</a></li><li class=""><a href="https://github.com/powervrni/powervrni" target="_self">GitHub</a></li><li class="siteNavGroupActive"><a href="/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Recent Posts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Recent Posts</h3><ul class=""><li class="navListItem"><a class="navItem" href="/blog/2020/01/09/100-switches">Adding 100 Switches to vRealize Network Insight in 20 minutes</a></li><li class="navListItem"><a class="navItem" href="/blog/2019/11/19/whatsnew-17">PowervRNI 1.7: What&#x27;s New?</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/11/19/servicenow">Integrating ServiceNow with Network Insight</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/10/13/vrnicloud">Using PowervRNI to connect to Network Insight SaaS</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/09/03/snmp">Using PowervRNI to configure SNMP settings</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="lonePost"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2018/02/12/applications">Using PowervRNI to Quickly Add Applications</a></h1><p class="post-meta">February 12, 2018</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><div><span><h2><a class="anchor" aria-hidden="true" id="applications"></a><a href="#applications" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Applications</h2>
+<p>Introduced in vRealize Network Insight 3.2 in the begin of 2017, Applications are logical containers which can contain the structure of applications (including tiering). You can use these application containers to better visualize what network flows are going between specific applications or even application tiers. Next to insights into your applications, you can also use it to take a per-application approach to micro-segmentation, using the planner feature in Network Insight.</p>
+<p>The first thing you should know is that the application container has a few concepts to it. The application itself, then tiers that make up the application (for instance, the easy 3 tier app: Web, App and Database tiers) and inside the tiers there are rules that determine what VMs will be placed in that tier. These rules can be based on the same criteria as you can use in the search engine, so you can get really creative. Below is a visual explanation of the different concepts:</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-structure.png"><img class="aligncenter size-large wp-image-22392" src="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-structure-1024x552.png" alt="" width="1024" height="552" /></a></p>
+<h2><a class="anchor" aria-hidden="true" id="creating-applications-with-powervrni"></a><a href="#creating-applications-with-powervrni" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating Applications with PowervRNI</h2>
+<p>So, to automate the creation of the application you need to be able to create applications, then the tier and the rules that will place VMs into the tiers. Here are the cmdlets in PowervRNI which will help:</p>
+<ul>
+<li>Get-vRNIApplication</li>
+<li>Get-vRNIApplicationTier</li>
+<li>New-vRNIApplication</li>
+<li>New-vRNIApplicationTier</li>
+<li>Remove-vRNIApplication</li>
+<li>Remove-vRNIApplicationTier</li>
+</ul>
+<p>To create a new application, first use <strong>New-vRNIApplication</strong> to create the container and then <strong>New-vRNIApplicationTier</strong> to fill that container.</p>
+<h2><a class="anchor" aria-hidden="true" id="using-new-vrniapplication"></a><a href="#using-new-vrniapplication" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using New-vRNIApplication</h2>
+<p>An application is just an empty container, so creating it is easy and straightforward:</p>
+<pre><code class="hljs"><span class="hljs-string">PS</span> <span class="hljs-string">/&gt;</span> <span class="hljs-string">New-vRNIApplication</span> <span class="hljs-string">-Name</span> <span class="hljs-string">"3 Tier App"</span>
+
+<span class="hljs-attr">entity_id          :</span> <span class="hljs-number">14307</span><span class="hljs-string">:561:939980817</span>
+<span class="hljs-attr">name               :</span> <span class="hljs-number">3</span> <span class="hljs-string">Tier</span> <span class="hljs-string">App</span>
+<span class="hljs-attr">entity_type        :</span> <span class="hljs-string">Application</span>
+<span class="hljs-attr">create_time        :</span> <span class="hljs-number">1518451535762</span>
+<span class="hljs-attr">created_by         :</span> <span class="hljs-string">admin@local</span>
+<span class="hljs-attr">last_modified_time :</span> <span class="hljs-number">0</span>
+<span class="hljs-attr">last_modified_by   :</span>
+</code></pre>
+<p>That's it. The return value is the Application object, which contains the newly created entity id and a few other details. After running this, you can verify using the interface:</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-container-3ta.png"><img class="aligncenter size-large wp-image-22395" src="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-container-3ta-1024x300.png" alt="" width="1024" height="300" /></a></p>
+<h2><a class="anchor" aria-hidden="true" id="using-new-vrniapplicationtier"></a><a href="#using-new-vrniapplicationtier" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using New-vRNIApplicationTier</h2>
+<p>Once you have an application container, you can define the tiers. Due to some limitations of the current vRNI API, you can currently only use VM names and NSX Security Groups to define the tier membership. Below is an example that uses both VM names and security groups:</p>
+<pre><code class="hljs">PS /&gt; <span class="hljs-variable">$security_group_id</span> = (Get-vRNISecurityGroup SG-3Tier-Web).entity_id
+PS /&gt; Get-vRNIApplication <span class="hljs-string">"3 Tier App"</span> | New-vRNIApplicationTier -Name Web-Tier -Filters (<span class="hljs-string">"name = '3TA-Web0*'"</span>, <span class="hljs-string">"security_groups.entity_id = '<span class="hljs-variable">$security_group_id</span>'"</span>)
+
+entity_id                 : 14307:562:323469247
+name                      : Web-Tier
+entity_type               : Tier
+group_membership_criteria : {@{<span class="hljs-attribute">membership_type</span>=SearchMembershipCriteria; search_membership_criteria=}, @{<span class="hljs-attribute">membership_type</span>=SearchMembershipCriteria; search_membership_criteria=}}
+application               : @{<span class="hljs-attribute">entity_id</span>=14307:561:788532360; <span class="hljs-attribute">entity_type</span>=Application}
+</code></pre>
+<p>I'll go through what happened here step by step:</p>
+<ol>
+<li>First, we find the entity ID of the security group called SG-3Tier-Web and store it in $security_group_id</li>
+<li>Then we use <strong>New-vRNIApplicationTier</strong> to create a new tier called Web-Tier with 2 rules:
+<ul>
+<li>Put in all VMs where the name begins with 3TA-Web0</li>
+<li>Put in all VMs that are in the security group called SG-3Tier-Web</li>
+</ul>
+</li>
+</ol>
+<p>If you then validate this in the interface, you'll see a newly added Web-Tier with the provides rules in it. You'll also notice that there's a "2 Vms" behind the rule. This is because I have 2 VMs called 3TA-Web01 and 3TA-Web02. Both are also in the security group ST-3Tier-Web.</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-container-3ta-tier-web.png"><img class="aligncenter size-large wp-image-22396" src="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-container-3ta-tier-web-1024x424.png" alt="" width="1024" height="424" /></a></p>
+<h2><a class="anchor" aria-hidden="true" id="adding-in-bulk"></a><a href="#adding-in-bulk" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding in Bulk</h2>
+<p>Using the cmdlets described above is pretty quick, but imagine doing that a couple 100-times in a greenfield environment. Not fun.</p>
+<p>With that in mind, I've put up an example on how to import a lot of applications at once in the <a href="https://github.com/PowervRNI/powervrni/tree/master/examples" target="_blank" rel="noopener">examples/</a> directory called: <a href="https://github.com/PowervRNI/powervrni/blob/master/examples/application-bulk-import.ps1" target="_blank" rel="noopener">application-bulk-import.ps1</a></p>
+<p>Similar to the data source bulk import script, the application bulk import script uses a CSV file as input. The CSV file has the applications, tiers and security groups and/or VM names in it. Here's an example of how it should be formatted.</p>
+<pre><code class="hljs">Application;Tier;Security Group;VM Names
+App01;Web;;App01-VM1-Web,App01-VM2-Web
+App01;App;ST-App01-App;App01-VM*-App
+App01;DB;ST-App01-DB;
+App02;NoTier;ST-App02;
+App03;Web;;App03-Web*
+App03;DB;;App03-DB*
+</code></pre>
+<p><small>* Yes, it’s technically not a CSV as I used ‘;’ for the separations. But this way Excel can read it into columns. ;-)</small></p>
+<p>As you might notice, the same Application can contain multiple lines. This is because each line represents an application tier and you can have multiple tiers in 1 single application. You can use either the <strong>Security Group</strong> or <strong>VM Names</strong> column to create the filters, or you can use both columns if the VMs need to have a certain name and be a member of a specific security group.</p>
+<h3><a class="anchor" aria-hidden="true" id="usage"></a><a href="#usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage</h3>
+<p>Once you have the CSV filled with data, you can run the script as follows:</p>
+<pre><code class="hljs">PS ~/PowervRNI/examples&gt; ./application-bulk-import.ps1 -ApplicationsCSV ./application-bulk-import.csv
+[02/12/2018 20:06:21] Processing application App01<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:21] Application App01 <span class="hljs-keyword">not</span> found, so creating it<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:21] Added Tier <span class="hljs-string">'Web'</span> <span class="hljs-keyword">to</span> application <span class="hljs-string">'App01'</span> with filters: name = <span class="hljs-string">'App01-VM1-Web'</span> <span class="hljs-keyword">or</span> name = <span class="hljs-string">'App01-VM2-Web'</span>
+[02/12/2018 20:06:22] Processing application App01<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:24] Added Tier <span class="hljs-string">'App'</span> <span class="hljs-keyword">to</span> application <span class="hljs-string">'App01'</span> with filters: security_groups.entity_id = <span class="hljs-string">'14307:82:1984513309'</span> name = <span class="hljs-string">'App01-VM*-App'</span>
+[02/12/2018 20:06:25] Processing application App01<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:27] Wanted <span class="hljs-keyword">to</span> use Security<span class="hljs-built_in"> Group </span>SG-App01-DB, but it doesn<span class="hljs-string">'t exist - so skipping this rule!
+[02/12/2018 20:06:27] Skipping Tier '</span>DB<span class="hljs-string">' in application '</span>App01<span class="hljs-string">' because filters are empty!
+[02/12/2018 20:06:27] Processing application App02..
+[02/12/2018 20:06:27] Application App02 not found, so creating it..
+[02/12/2018 20:06:29] Wanted to use Security Group SG-App02, but it doesn'</span>t exist - so skipping this rule!
+[02/12/2018 20:06:29] Skipping Tier <span class="hljs-string">'NoTier'</span> <span class="hljs-keyword">in</span> application <span class="hljs-string">'App02'</span> because filters are empty!
+[02/12/2018 20:06:29] Processing application App03<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:29] Application App03 <span class="hljs-keyword">not</span> found, so creating it<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:29] Added Tier <span class="hljs-string">'Web'</span> <span class="hljs-keyword">to</span> application <span class="hljs-string">'App03'</span> with filters: name = <span class="hljs-string">'App03-Web*'</span>
+[02/12/2018 20:06:30] Processing application App03<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:30] Added Tier <span class="hljs-string">'DB'</span> <span class="hljs-keyword">to</span> application <span class="hljs-string">'App03'</span> with filters: name = <span class="hljs-string">'App03-DB*'</span>
+</code></pre>
+<p>That's it! Let me know if you have any questions. PowervRNI can be found on <a href="https://github.com/PowervRNI/powervrni" target="_blank" rel="noopener">GitHub</a> and on <a href="https://twitter.com/PowervRNI" target="_blank" rel="noopener">twitter</a> for the latest news.</p>
+</span></div></div><div class="blogSocialSection"></div></div><div class="blog-recent"><a class="button" href="/blog">Recent Posts</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#applications">Applications</a></li><li><a href="#creating-applications-with-powervrni">Creating Applications with PowervRNI</a></li><li><a href="#using-new-vrniapplication">Using New-vRNIApplication</a></li><li><a href="#using-new-vrniapplicationtier">Using New-vRNIApplicationTier</a></li><li><a href="#adding-in-bulk">Adding in Bulk</a><ul class="toc-headings"><li><a href="#usage">Usage</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/powervrni-logo.png" alt="PowervRNI" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/getting-started.html">Getting Started</a><a href="/docs/en/examples.html">Examples</a><a href="/docs/en/videos.html">Videos</a></div><div><h5>Community</h5><div class="social"><a href="https://twitter.com/powervrni" class="twitter-follow-button">Follow @powervrni</a></div></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/powervrni/powervrni">GitHub</a></div></section><section class="copyright">Copyright © 2020 Martijn Smit</section></footer></div><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script></body></html>

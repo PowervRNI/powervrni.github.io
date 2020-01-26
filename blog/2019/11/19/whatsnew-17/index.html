@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>PowervRNI 1.7: What&#x27;s New? · PowervRNI</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Version 1.7 of &lt;a href=&quot;//github.com/powervrni/powervrni&quot;&gt;PowervRNI&lt;/a&gt; was released yesterday, and this post covers what&#x27;s new in this version. If you&#x27;re not familiar with &lt;a href=&quot;//github.com/powervrni/powervrni&quot;&gt;PowervRNI&lt;/a&gt;, it is a PowerShell module that you can use to manage &lt;a href=&quot;//vmware.com/go/vrni&quot;&gt;vRealize Network Insight&lt;/a&gt;. From adding data sources &amp;amp; applications, to retrieve data from it, such a network flows, &lt;a href=&quot;/tag/powervrni/&quot;&gt;PowervRNI&lt;/a&gt; covers most of the public API endpoints of Network Insight.&lt;/p&gt;"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="PowervRNI 1.7: What&#x27;s New? · PowervRNI"/><meta property="og:type" content="website"/><meta property="og:url" content="https://powervrni.github.io/blog/2019/11/19/whatsnew-17"/><meta property="og:description" content="&lt;p&gt;Version 1.7 of &lt;a href=&quot;//github.com/powervrni/powervrni&quot;&gt;PowervRNI&lt;/a&gt; was released yesterday, and this post covers what&#x27;s new in this version. If you&#x27;re not familiar with &lt;a href=&quot;//github.com/powervrni/powervrni&quot;&gt;PowervRNI&lt;/a&gt;, it is a PowerShell module that you can use to manage &lt;a href=&quot;//vmware.com/go/vrni&quot;&gt;vRealize Network Insight&lt;/a&gt;. From adding data sources &amp;amp; applications, to retrieve data from it, such a network flows, &lt;a href=&quot;/tag/powervrni/&quot;&gt;PowervRNI&lt;/a&gt; covers most of the public API endpoints of Network Insight.&lt;/p&gt;"/><meta property="og:image" content="https://powervrni.github.io/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://powervrni.github.io/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/powervrni-logo.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://powervrni.github.io/blog/atom.xml" title="PowervRNI Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://powervrni.github.io/blog/feed.xml" title="PowervRNI Blog RSS Feed"/><script type="text/javascript" src="/static/js/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/powervrni-logo.png" alt="PowervRNI"/><h2 class="headerTitleWithLogo">PowervRNI</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/getting-started" target="_self">Getting Started</a></li><li class=""><a href="/docs/examples" target="_self">Examples</a></li><li class=""><a href="/docs/videos" target="_self">Videos</a></li><li class=""><a href="https://github.com/powervrni/powervrni" target="_self">GitHub</a></li><li class="siteNavGroupActive"><a href="/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Recent Posts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Recent Posts</h3><ul class=""><li class="navListItem"><a class="navItem" href="/blog/2020/01/09/100-switches">Adding 100 Switches to vRealize Network Insight in 20 minutes</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/blog/2019/11/19/whatsnew-17">PowervRNI 1.7: What&#x27;s New?</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/11/19/servicenow">Integrating ServiceNow with Network Insight</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/10/13/vrnicloud">Using PowervRNI to connect to Network Insight SaaS</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/09/03/snmp">Using PowervRNI to configure SNMP settings</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="lonePost"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2019/11/19/whatsnew-17">PowervRNI 1.7: What&#x27;s New?</a></h1><p class="post-meta">November 19, 2019</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><div><span><p>Version 1.7 of <a href="//github.com/powervrni/powervrni">PowervRNI</a> was released yesterday, and this post covers what's new in this version. If you're not familiar with <a href="//github.com/powervrni/powervrni">PowervRNI</a>, it is a PowerShell module that you can use to manage <a href="//vmware.com/go/vrni">vRealize Network Insight</a>. From adding data sources &amp; applications, to retrieve data from it, such a network flows, <a href="/tag/powervrni/">PowervRNI</a> covers most of the public API endpoints of Network Insight.</p>
+<h2>What's New?</h2>
+<p>A bunch! First off, it has been updated to support the new data sources and API calls that have been added in <a href="//blogs.vmware.com/management/2019/09/whats-new-with-vrealize-network-insight-5-0.html">Network Insight 5.0</a>. Second, I've added a few backlog items. I'll go through the changes below.</p>
+<h3>Data Sources</h3>
+<p><strong>New: Update-vRNIDataSource</strong></p>
+<p>Let's start with a good one. PowervRNI had to ability to add and remove data sources, but not edit them. Update-vRNIDataSource adds the possibility to update one or multiple data sources by updating their <strong>Nickname</strong>, <strong>Notes</strong>, or, most importantly, their <strong>Username</strong> and <strong>Password</strong> details. Imaging updating the login credentials of 52 switches, all at once. This example does just that:</p>
+<pre><code class="hljs">PS &gt; Get-vRNIDataSource -DataSourceType ciscoswitch | Update-vRNIDataSource -Username readonly -Password<span class="hljs-built_in"> secret
+</span></code></pre>
+<h2><a class="anchor" aria-hidden="true" id="new-data-sources"></a><a href="#new-data-sources" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>New Data Sources</h2>
+<p>Version 1. 7 adds support for the new data sources: Azure, VeloCloud, FortiManager, and Generic Router/Switch devices (UANI). Here are a few examples:</p>
+<h3><a class="anchor" aria-hidden="true" id="adding-a-velocloud-orchestrator"></a><a href="#adding-a-velocloud-orchestrator" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding a VeloCloud Orchestrator</h3>
+<pre><code class="hljs"><span class="hljs-string">PS</span> <span class="hljs-string">&gt;</span> <span class="hljs-string">New-vRNIDataSource</span> <span class="hljs-string">-DataSourceType</span> <span class="hljs-string">velocloud</span> <span class="hljs-string">-Username</span> <span class="hljs-string">vrni@vrni.cmbu.local</span> <span class="hljs-string">-Password</span> <span class="hljs-string">password</span> <span class="hljs-string">-CollectorVMId</span> <span class="hljs-string">$collectorId</span> <span class="hljs-string">-Nickname</span> <span class="hljs-string">VeloCloud</span> <span class="hljs-string">-FDQN</span> <span class="hljs-string">vcoxx.velocloud.net</span>
+
+<span class="hljs-attr">entity_id   :</span> <span class="hljs-number">10771</span><span class="hljs-string">:962:1907704854791059140</span>
+<span class="hljs-attr">entity_type :</span> <span class="hljs-string">VeloCloudDataSource</span>
+<span class="hljs-attr">fqdn        :</span> <span class="hljs-string">vcoxx.velocloud.net</span>
+<span class="hljs-attr">proxy_id    :</span> <span class="hljs-number">10771</span><span class="hljs-string">:901:8169725906866024439</span>
+<span class="hljs-attr">nickname    :</span> <span class="hljs-string">VeloCloud</span>
+<span class="hljs-attr">enabled     :</span> <span class="hljs-literal">True</span>
+<span class="hljs-attr">credentials :</span> <span class="hljs-string">@{username=vrni@vrni.cmbu.local;</span> <span class="hljs-string">password=}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="adding-an-azure-subscription"></a><a href="#adding-an-azure-subscription" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding an Azure subscription</h3>
+<pre><code class="hljs">PS &gt; New-vRNIDataSource -DataSourceType azure -CollectorVMId <span class="hljs-variable">$collectorId</span> -Nickname Azure-TenantID xxx-xxx-xxx-xxx -ApplicationID xxx-xxx-xxx-xxx -SecretKey<span class="hljs-built_in"> secret </span>-SubscriptionID xxx-xxx-xxx-xxx
+
+entity_id     : 10771:966:6062894549792355656
+entity_type   : AzureDataSource
+proxy_id      : 10771:901:8169725906866024439
+nickname      : Azure-Dev
+enabled       : <span class="hljs-literal">True</span>
+credentials   : @{<span class="hljs-attribute">azure_client</span>=xxx-xxx-xxx-xxx; <span class="hljs-attribute">azure_tenant</span>=xxx-xxx-xxx-xxx; <span class="hljs-attribute">azure_subscription</span>=xxx-xxx-xxx-xxx}
+flows_enabled : <span class="hljs-literal">True</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="adding-a-generic-switchrouter-device"></a><a href="#adding-a-generic-switchrouter-device" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding a Generic Switch/Router device</h3>
+<pre><code class="hljs">PS &gt; New-vRNIDataSource -DataSourceType generic-device -CollectorVMId $collectorId -IP <span class="hljs-number">10.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> -Nickname gw1
+
+entity_id   : <span class="hljs-number">10771</span>:<span class="hljs-number">963</span>:<span class="hljs-number">7000486714130462696</span>
+entity_type : GenericSwitchDataSource
+ip          : <span class="hljs-number">10.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+proxy_id    : <span class="hljs-number">10771</span>:<span class="hljs-number">901</span>:<span class="hljs-number">8169725906866024439</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="uploading-the-generic-switchrouter-zip-file-with-csvs"></a><a href="#uploading-the-generic-switchrouter-zip-file-with-csvs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Uploading the Generic Switch/Router ZIP file with CSVs</h3>
+<pre><code class="hljs">PS &gt; Get-vRNIDataSource -DataSourceType generic-device | where {<span class="hljs-variable">$_</span>.nickname -eq <span class="hljs-string">"gw1"</span>} | Update-vRNIDataSourceData -Zipfile ~/new-gw1-csv.zip
+
+entity_id   : 10771:963:1592443492322905846
+entity_type : GenericSwitchDataSource<span class="hljs-built_in">
+ip </span>         : 10.0.0.1
+proxy_id    : 10771:901:8169725906866024439
+nickname    : gw1
+enabled     : <span class="hljs-literal">True</span>
+</code></pre>
+<p>Adding Kubernetes and OpenShift clusters has also been fixed, by using the contents of your KubeConfig:</p>
+<pre><code class="hljs">PS &gt; <span class="hljs-variable">$nsxtId</span> = (Get-vRNIDataSource -DatasourceType nsxt | Where {<span class="hljs-variable">$_</span>.nickname -eq <span class="hljs-string">"my-nsxt-manager"</span>} | Select -ExpandProperty id)
+PS &gt; <span class="hljs-variable">$collectorId</span> = (Get-vRNINodes | Where {<span class="hljs-variable">$_</span>.ip_address -eq <span class="hljs-string">"10.0.0.11"</span>} | Select -ExpandProperty id)
+PS &gt; <span class="hljs-variable">$kubeconfig</span> = (Get-Content ~/.kube<span class="hljs-built_in">/config </span>| Out-String)
+PS &gt; New-vRNIDataSource -DataSourceType kubernetes -Nickname k8s-cluster-1 -CollectorVMId <span class="hljs-variable">$collectorId</span> -NSXTManagerID <span class="hljs-variable">$nsxtId</span> -KubeConfig <span class="hljs-variable">$kubeconfig</span>
+</code></pre>
+<p>F5 Load Balancer support has been fixed. The API in 4.2 didn't work, as the data source had a different entity type.</p>
+<pre><code class="hljs"><span class="hljs-string">PS</span> <span class="hljs-string">&gt;</span> <span class="hljs-string">New-vRNIDataSource</span> <span class="hljs-string">-DataSourceType</span> <span class="hljs-string">f5-bigip</span> <span class="hljs-string">-Username</span> <span class="hljs-string">admin</span> <span class="hljs-string">-Password</span> <span class="hljs-string">password</span> <span class="hljs-string">-CollectorVMId</span> <span class="hljs-string">$collectorId</span> <span class="hljs-string">-Nickname</span> <span class="hljs-string">F5</span> <span class="hljs-string">-FDQN</span> <span class="hljs-string">f5.lab.local</span>
+
+<span class="hljs-attr">entity_id :</span> <span class="hljs-number">10771</span><span class="hljs-string">:952:7880684499039039792</span>
+<span class="hljs-attr">entity_type :</span> <span class="hljs-string">F5BIGIPDataSource</span>
+<span class="hljs-attr">fqdn :</span> <span class="hljs-string">f5.lab.local</span>
+<span class="hljs-attr">proxy_id :</span> <span class="hljs-number">10771</span><span class="hljs-string">:901:8169725906866024439</span>
+<span class="hljs-attr">nickname :</span> <span class="hljs-string">F5</span>
+<span class="hljs-attr">enabled :</span> <span class="hljs-literal">True</span>
+<span class="hljs-attr">credentials :</span> <span class="hljs-string">@{username=admin}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="setting-nsx-v-controller-passwords"></a><a href="#setting-nsx-v-controller-passwords" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setting NSX-v Controller Passwords</h3>
+<p>Network Insight collects routing information from the NSX-v controllers. To do so, it needs the password to log in to those controllers. I've added a new cmdlet called Update-vRNINSXvControllerPassword to do this:</p>
+<pre><code class="hljs">PS &gt; Get-vRNIDataSource -DatasourceType nsxv | Update-vRNINSXvControllerClusterPassword -Password<span class="hljs-built_in"> secret
+</span></code></pre>
+<h3><a class="anchor" aria-hidden="true" id="support-for-nsx-v-and-nsx-t-virtual-infra-latency"></a><a href="#support-for-nsx-v-and-nsx-t-virtual-infra-latency" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Support for NSX-v and NSX-T Virtual Infra Latency</h3>
+<p>From NSX-v 6.4.5+ and NSX-T 2.5+ - NSX can stream telemetry on latency between VTEPs, physical and virtual NICs. NSX is configured by Network Insight and the new -NSXEnableLatency $True parameter on New-vRNIDataSource, will do that when adding the NSX Manager as a data source. Example:</p>
+<pre><code class="hljs">PS &gt; New-vRNIDataSource -DataSourceType nsxv -NSXEnableLatency <span class="hljs-variable">$True</span> -FDQN mgr.nsx.local -Username admin -Password<span class="hljs-built_in"> secret </span>-Nickname mgr.nsx.local -CollectorVMId <span class="hljs-variable">$collectorId</span> -Enabled <span class="hljs-variable">$True</span> -NSXEnableCentralCLI <span class="hljs-variable">$True</span> -NSXEnableIPFIX <span class="hljs-variable">$True</span> -NSXvCenterID <span class="hljs-variable">$vcId</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="a-better-experience-with-connect-vrniserver"></a><a href="#a-better-experience-with-connect-vrniserver" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>A better experience with Connect-vRNIServer</h3>
+<p>Before 1.7, when connecting with LDAP/Active Directory credentials, the Connect-vRNIServer cmdlet looked as following:</p>
+<pre><code class="hljs">Connect-vRNIServer -Server platform -Username martijn@ld.local -Domain ld.local -Password<span class="hljs-built_in"> secret
+</span></code></pre>
+<p>Maybe you've noticed the domain name is mentioned twice, both in the <strong>Username</strong> and <strong>Domain</strong> values. This was mostly due to the input that the vRNI API requires. It's a small change, but now, PowervRNI now detects the usage of a non-local domain and allow you to omit the <strong>Domain</strong> parameter.</p>
+<pre><code class="hljs">Connect-vRNIServer -Server platform -Username martijn@ld.local -Password<span class="hljs-built_in"> secret
+</span></code></pre>
+<p>If you have local vRNI accounts with domains other than local, you can make sure it authenticates locally by still adding the parameters: <strong>-Domain LOCAL</strong>, *or* <strong>-UseLocalAuth</strong>.</p>
+<h3><a class="anchor" aria-hidden="true" id="get-vrnikubernetesservices"></a><a href="#get-vrnikubernetesservices" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get-vRNIKubernetesServices</h3>
+<p>Network Insight can pull Kubernetes information (services, namespaces, clusters, nodes, etc.) and the networking details behind these containers. But, there's only 1 public API added to retrieve information, and it's to retrieve a list of the Kubernetes services:</p>
+<pre><code class="hljs">PS &gt; Get-vRNIKubernetesServices -Limit <span class="hljs-number">1</span>
+
+entity_id          : <span class="hljs-number">10771</span>:<span class="hljs-number">1504</span>:<span class="hljs-number">7006772991589105315</span>
+name               : metrics-server
+entity_type        : KubernetesService
+vendor_id          : c88a10d1-e04c<span class="hljs-number">-11e9</span>-a348<span class="hljs-number">-0050569525</span>d5
+annotations        : {kubectl.kubernetes.io/last-applied-configuration}
+labels             : {kubernetes.io/name}
+creation_timestamp : <span class="hljs-number">09</span>/<span class="hljs-number">26</span>/<span class="hljs-number">2019</span> <span class="hljs-number">10</span>:<span class="hljs-number">59</span>:<span class="hljs-number">59</span>
+<span class="hljs-keyword">namespace</span>          : @{entity_id=<span class="hljs-number">10771</span>:<span class="hljs-number">1503</span>:<span class="hljs-number">2077432250506315584</span>}
+cluster_ip         : @{ip_address=<span class="hljs-number">10.100</span><span class="hljs-number">.200</span><span class="hljs-number">.71</span>;netmask=<span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.255</span>; network_address=<span class="hljs-number">10.100</span><span class="hljs-number">.200</span><span class="hljs-number">.71</span>/<span class="hljs-number">32</span>}
+loadbalancer_ip    : @{ip_address=; netmask=; network_address=}
+type               : ClusterIP
+external_ips       : {}
+selectors          : {k8s-app}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="set-vrniuserpassword"></a><a href="#set-vrniuserpassword" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set-vRNIUserPassword</h3>
+<p>Network Insight 5.0 also added a new API endpoint to manage passwords of local users. The new cmdlet Set-vRNIUserPassword allows you to change your own password, or as an administrator; change passwords of all users.</p>
+<pre><code class="hljs">PS &gt; <span class="hljs-keyword">Set</span>-vRNIUserPassword -Username <span class="hljs-keyword">admin</span>@<span class="hljs-keyword">local</span> -NewPassword newpassword
+</code></pre>
+<p>or<br /></p>
+<pre><code class="hljs">PS &gt; Set-vRNIUserPassword -Username test@local.corp
+PowerShell credential request
+Input the new password
+Password <span class="hljs-keyword">for</span><span class="hljs-built_in"> user </span>test@local.corp: ********
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="other-things"></a><a href="#other-things" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Other things</h2>
+<ul>
+<li>Fixed adding Huawei switches as data sources by using the new DataSourceType in vRNI 5.0.</li>
+<li>Fixed returning multiple entities with the same name (e.g. same VM names with Get-vRNIVM)</li>
+</ul></span></div></div><div class="blogSocialSection"></div></div><div class="blog-recent"><a class="button" href="/blog">Recent Posts</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#new-data-sources">New Data Sources</a><ul class="toc-headings"><li><a href="#adding-a-velocloud-orchestrator">Adding a VeloCloud Orchestrator</a></li><li><a href="#adding-an-azure-subscription">Adding an Azure subscription</a></li><li><a href="#adding-a-generic-switchrouter-device">Adding a Generic Switch/Router device</a></li><li><a href="#uploading-the-generic-switchrouter-zip-file-with-csvs">Uploading the Generic Switch/Router ZIP file with CSVs</a></li><li><a href="#setting-nsx-v-controller-passwords">Setting NSX-v Controller Passwords</a></li><li><a href="#support-for-nsx-v-and-nsx-t-virtual-infra-latency">Support for NSX-v and NSX-T Virtual Infra Latency</a></li><li><a href="#a-better-experience-with-connect-vrniserver">A better experience with Connect-vRNIServer</a></li><li><a href="#get-vrnikubernetesservices">Get-vRNIKubernetesServices</a></li><li><a href="#set-vrniuserpassword">Set-vRNIUserPassword</a></li></ul></li><li><a href="#other-things">Other things</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/powervrni-logo.png" alt="PowervRNI" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/getting-started.html">Getting Started</a><a href="/docs/en/examples.html">Examples</a><a href="/docs/en/videos.html">Videos</a></div><div><h5>Community</h5><div class="social"><a href="https://twitter.com/powervrni" class="twitter-follow-button">Follow @powervrni</a></div></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/powervrni/powervrni">GitHub</a></div></section><section class="copyright">Copyright © 2020 Martijn Smit</section></footer></div><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script></body></html>

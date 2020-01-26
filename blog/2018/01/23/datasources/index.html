@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Using PowervRNI to Quickly Add Data Sources · PowervRNI</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;This is the first post in a series on how to use &lt;a href=&quot;https://lostdomain.org/2018/01/introducing-powervrni/&quot;&gt;PowervRNI&lt;/a&gt; to manage your vRealize Network Insight environment. Starting with &lt;a href=&quot;https://docs.vmware.com/en/VMware-Network-Insight/services/Using-VMware-Network-Insight/GUID-66937AC9-D552-4E86-A9D9-5EB11F238BFC.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Data Sources&lt;/a&gt;.&lt;/p&gt;"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Using PowervRNI to Quickly Add Data Sources · PowervRNI"/><meta property="og:type" content="website"/><meta property="og:url" content="https://powervrni.github.io/blog/2018/01/23/datasources"/><meta property="og:description" content="&lt;p&gt;This is the first post in a series on how to use &lt;a href=&quot;https://lostdomain.org/2018/01/introducing-powervrni/&quot;&gt;PowervRNI&lt;/a&gt; to manage your vRealize Network Insight environment. Starting with &lt;a href=&quot;https://docs.vmware.com/en/VMware-Network-Insight/services/Using-VMware-Network-Insight/GUID-66937AC9-D552-4E86-A9D9-5EB11F238BFC.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Data Sources&lt;/a&gt;.&lt;/p&gt;"/><meta property="og:image" content="https://powervrni.github.io/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://powervrni.github.io/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/powervrni-logo.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://powervrni.github.io/blog/atom.xml" title="PowervRNI Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://powervrni.github.io/blog/feed.xml" title="PowervRNI Blog RSS Feed"/><script type="text/javascript" src="/static/js/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/powervrni-logo.png" alt="PowervRNI"/><h2 class="headerTitleWithLogo">PowervRNI</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/getting-started" target="_self">Getting Started</a></li><li class=""><a href="/docs/examples" target="_self">Examples</a></li><li class=""><a href="/docs/videos" target="_self">Videos</a></li><li class=""><a href="https://github.com/powervrni/powervrni" target="_self">GitHub</a></li><li class="siteNavGroupActive"><a href="/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Recent Posts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Recent Posts</h3><ul class=""><li class="navListItem"><a class="navItem" href="/blog/2020/01/09/100-switches">Adding 100 Switches to vRealize Network Insight in 20 minutes</a></li><li class="navListItem"><a class="navItem" href="/blog/2019/11/19/whatsnew-17">PowervRNI 1.7: What&#x27;s New?</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/11/19/servicenow">Integrating ServiceNow with Network Insight</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/10/13/vrnicloud">Using PowervRNI to connect to Network Insight SaaS</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/09/03/snmp">Using PowervRNI to configure SNMP settings</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="lonePost"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2018/01/23/datasources">Using PowervRNI to Quickly Add Data Sources</a></h1><p class="post-meta">January 23, 2018</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><div><span><p>This is the first post in a series on how to use <a href="https://lostdomain.org/2018/01/introducing-powervrni/">PowervRNI</a> to manage your vRealize Network Insight environment. Starting with <a href="https://docs.vmware.com/en/VMware-Network-Insight/services/Using-VMware-Network-Insight/GUID-66937AC9-D552-4E86-A9D9-5EB11F238BFC.html" target="_blank" rel="noopener">Data Sources</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="data-sources"></a><a href="#data-sources" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Data Sources</h2>
+<p>Brief background; data sources in vRNI are endpoints from which vRNI retrieves information from. Examples are: vCenter, NSX, Switches, Routers, Firewalls, an AWS account or converged infrastructure systems like Cisco UCS or HP OneView.</p>
+<p>Adding data sources is usually only performed when vRNI is installed into the environment and every time a new endpoint is added to your environment (for example a new vCenter environment, or when a new switch is plugged in).</p>
+<p>Why would you want to automate adding data sources? First off, adding all your data sources upon installation can be tedious and repetitive work. And if you are one of those companies who have automated the deployment of a new top-of-rack switch (like some of my customers), you would also want that switch to automatically appear in vRNI.</p>
+<h2><a class="anchor" aria-hidden="true" id="using-new-vrnidatasource"></a><a href="#using-new-vrnidatasource" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using New-vRNIDataSource</h2>
+<p>One of the beauties of PowerShell, is that the cmdlet naming convention is structured in a way that it tells you exactly what it's going to do. Same goes for New-vRNIDataSource. :-)</p>
+<pre><code class="hljs">PS C:\&gt; Get-Help New-vRNIDataSource
+
+NAME
+    New-vRNIDataSource
+
+SYNOPSIS
+    Create new datasources within vRealize<span class="hljs-built_in"> Network </span>Insight <span class="hljs-keyword">to</span> retrieve data <span class="hljs-keyword">from</span>.
+</code></pre>
+<p>There are a few parameters with the <strong>New-vRNIDataSource</strong> cmdlet available. Mostly for providing details on the data source. Let's go through them:</p>
+<p><code>-DataSourceType</code></p>
+<p>A data source type can be one of the following values:</p>
+<ul>
+<li>vcenter</li>
+<li>nsxv *</li>
+<li>ciscoswitch *</li>
+<li>aristaswitch</li>
+<li>dellswitch *</li>
+<li>brocadeswitch</li>
+<li>juniperswitch</li>
+<li>ciscoucs</li>
+<li>hponeview</li>
+<li>hpvcmanager</li>
+<li>checkpointfirewall</li>
+<li>panfirewall</li>
+</ul>
+<p><small>If you provide either nsxv, ciscoswitch or dellswitch as the type, you need to supply specific options for those types.</small></p>
+<p><code>-Username -Password</code></p>
+<p>Credentials to use to log into the data source.</p>
+<p><code>[-IP ] [-FDQN ]</code></p>
+<p>Supply either the IP address or the FDQN (hostname) of the data source, don't supply both.</p>
+<p><code>-CollectorVMId</code></p>
+<p>This needs to be the entity ID of the vRNI collector appliance that will collect data from this source. This entity ID can be retrieved using the cmdlet Get-vRNINodes (example below).</p>
+<p><code>-Nickname</code></p>
+<p>Within vRNI, this data source will be identified with its nickname. It's usually a good idea to configure this with the hostname of the data source.</p>
+<p><code>[-Enabled ]</code></p>
+<p>By default, the data source will be enabled for collecting. You can disable it by providing $False on this parameter.</p>
+<p><code>[-Notes ]</code></p>
+<p>Optional internal notes about the data source. This won’t show up anywhere but at the data source management within vRNI.</p>
+<p><code>[-Connection ]</code></p>
+<p>With every PowervRNI cmdlet, you can supply an optional parameter identifying the vRNI connection you want to work with. This is useful when working with multiple vRNI instances at once. If you just have a single instance, you don't need to use this parameter.</p>
+<h2><a class="anchor" aria-hidden="true" id="nsxv-cisco-amp-dell-switches-specific-options"></a><a href="#nsxv-cisco-amp-dell-switches-specific-options" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>NSXv, Cisco &amp; Dell Switches Specific Options</h2>
+<p>With NSX, Cisco and Dell switches there are specific data source options you need to supply.</p>
+<h3><a class="anchor" aria-hidden="true" id="nsx"></a><a href="#nsx" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>NSX</h3>
+<p><code>-NSXEnableCentralCLI</code></p>
+<p>Do you want to enable collecting NSX Edge information via the NSX Central CLI, or do you want vRNI to directly connect to the NSX Edges: <strong>$True</strong> to use the Central CLI and <strong>$False</strong> to directly connect.</p>
+<p><code>-NSXEnableIPFIX</code></p>
+<p>With <strong>$True</strong> provided, this will enable IPFIX traffic monitoring data coming from NSX to vRNI. <u>Note</u>: this is different than the Netflow data vCenter can send via the VDS.</p>
+<p><code>-NSXvCenterID</code></p>
+<p>The entity ID of the vCenter that is connected to this NSX Manager. This entity ID can be retrieved using the cmdlet Get-vRNINodes (example below).</p>
+<h3><a class="anchor" aria-hidden="true" id="cisco-switches"></a><a href="#cisco-switches" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cisco Switches</h3>
+<p><code>-CiscoSwitchType</code></p>
+<p>Because some Cisco switches have different features, CLIs and different commands to retrieve information, you need to specify what type of Cisco switch you are adding. Here’s a list of options:</p>
+<ul>
+<li>CATALYST_3000</li>
+<li>CATALYST_4500</li>
+<li>CATALYST_6500</li>
+<li>NEXUS_5K</li>
+<li>NEXUS_7K</li>
+<li>NEXUS_9K</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="dell-switches"></a><a href="#dell-switches" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dell Switches</h3>
+<p><code>-DellSwitchType</code></p>
+<p>Dell switches also have differences in features, CLIs and commands to retrieve information, so you also need to specify what type of Dell switch you are adding. Here's a list of options:</p>
+<ul>
+<li>FORCE_10_MXL_10</li>
+<li>POWERCONNECT_8024</li>
+<li>S4048</li>
+<li>Z9100</li>
+<li>S6000</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h2>
+<p>Below is a screenshot of a call to New-vRNIDataSource to add a new vCenter server.</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/01/Screen_Shot_2018-01-21_at_20_48_01.png"><img class="aligncenter size-large wp-image-22338" src="https://lostdomain.org/wp-content/uploads/2018/01/Screen_Shot_2018-01-21_at_20_48_01-1024x232.png" alt="" width="1024" height="232" /></a></p>
+<p>This first looks up the collector entity ID of the collector with the IP address "10.8.x.x" and then uses that entity ID to add a vCenter data source type with.</p>
+<h2><a class="anchor" aria-hidden="true" id="adding-in-bulk"></a><a href="#adding-in-bulk" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding in Bulk</h2>
+<p>If adding one by one isn’t quick enough (or if you have a couple dozen devices to go through), you can also use an example script that I put in the <a href="https://github.com/PowervRNI/powervrni/tree/master/examples" target="_blank" rel="noopener">examples/</a> directory of PowervRNI: <a href="https://github.com/PowervRNI/powervrni/tree/master/examples" target="_blank" rel="noopener">datasource-bulk-import.ps1</a></p>
+<p>This script takes a CSV file as input and runs through that CSV to add multiple data sources. It contains all available parameters as a column and is formatted as follows:</p>
+<pre><code class="hljs"><span class="hljs-selector-tag">DatasourceType</span>;<span class="hljs-selector-tag">IP</span>;<span class="hljs-selector-tag">Username</span>;<span class="hljs-selector-tag">Password</span>;<span class="hljs-selector-tag">Nickname</span>;<span class="hljs-selector-tag">NSX_ENABLE_CENTRAL_CLI</span>;<span class="hljs-selector-tag">NSX_ENABLE_IPFIX</span>;<span class="hljs-selector-tag">NSX_VCENTER_NICKNAME</span>;<span class="hljs-selector-tag">CISCO_SWITCHTYPE</span>;<span class="hljs-selector-tag">DELL_SWITCHTYPE</span>
+<span class="hljs-selector-tag">vcenter</span>;172<span class="hljs-selector-class">.16</span><span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.11</span>;<span class="hljs-selector-tag">administrator</span>@<span class="hljs-keyword">vsphere</span>.<span class="hljs-keyword">local</span>;<span class="hljs-selector-tag">MyPassword</span>;<span class="hljs-selector-tag">vcenter</span><span class="hljs-selector-class">.lab</span><span class="hljs-selector-class">.local</span>;<span class="hljs-selector-tag">onlyusedforNSX</span>;<span class="hljs-selector-tag">onlyusedforNSX</span>;<span class="hljs-selector-tag">onlyusedforNSX</span>;<span class="hljs-selector-tag">onlyusedforCisco</span>;<span class="hljs-selector-tag">onlyusedforDell</span>
+</code></pre>
+<p><small>* Yes, it's technically not a CSV as I used ';' for the separations. But this way Excel can read it into columns. ;-)</small></p>
+<p>The column names represent the cmdlet parameters. This also means that for some data source types, not all columns are used. Hence the "onlyusedforNSX", "onlyusedforCisco" and "onlyusedforDell" values in the line for a vCenter data source.</p>
+<h3><a class="anchor" aria-hidden="true" id="usage"></a><a href="#usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage</h3>
+<p>Once you have the CSV in order, you can run the script as follows:</p>
+<pre><code class="hljs css language-PS C:&gt; ./datasource-bulk-import.ps1 -DatasourcesCSV ./datasource-bulk-import.csv">[<span class="hljs-number">01</span>/<span class="hljs-number">15</span>/<span class="hljs-number">2018</span> <span class="hljs-number">17</span>:<span class="hljs-number">28</span>:<span class="hljs-number">04</span>] Adding a vcenter <span class="hljs-keyword">Data</span> Source with IP <span class="hljs-number">172.16</span>.<span class="hljs-number">0.11</span>..
+[<span class="hljs-number">01</span>/<span class="hljs-number">15</span>/<span class="hljs-number">2018</span> <span class="hljs-number">17</span>:<span class="hljs-number">28</span>:<span class="hljs-number">04</span>] Adding a nsxv <span class="hljs-keyword">Data</span> Source with IP <span class="hljs-number">172.16</span>.<span class="hljs-number">0.12</span>..
+[<span class="hljs-number">01</span>/<span class="hljs-number">15</span>/<span class="hljs-number">2018</span> <span class="hljs-number">17</span>:<span class="hljs-number">28</span>:<span class="hljs-number">05</span>] Adding a ciscoswitch <span class="hljs-keyword">Data</span> Source with IP <span class="hljs-number">172.16</span>.<span class="hljs-number">0.13</span>..
+</code></pre>
+<p>That's it! Let me know if you have any questions. PowervRNI can be found on <a href="https://github.com/PowervRNI/powervrni" target="_blank" rel="noopener">GitHub</a> and on <a href="https://twitter.com/PowervRNI" target="_blank" rel="noopener">twitter</a> for the latest news.</p>
+</span></div></div><div class="blogSocialSection"></div></div><div class="blog-recent"><a class="button" href="/blog">Recent Posts</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#data-sources">Data Sources</a></li><li><a href="#using-new-vrnidatasource">Using New-vRNIDataSource</a></li><li><a href="#nsxv-cisco-amp-dell-switches-specific-options">NSXv, Cisco &amp; Dell Switches Specific Options</a><ul class="toc-headings"><li><a href="#nsx">NSX</a></li><li><a href="#cisco-switches">Cisco Switches</a></li><li><a href="#dell-switches">Dell Switches</a></li></ul></li><li><a href="#example">Example</a></li><li><a href="#adding-in-bulk">Adding in Bulk</a><ul class="toc-headings"><li><a href="#usage">Usage</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/powervrni-logo.png" alt="PowervRNI" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/getting-started.html">Getting Started</a><a href="/docs/en/examples.html">Examples</a><a href="/docs/en/videos.html">Videos</a></div><div><h5>Community</h5><div class="social"><a href="https://twitter.com/powervrni" class="twitter-follow-button">Follow @powervrni</a></div></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/powervrni/powervrni">GitHub</a></div></section><section class="copyright">Copyright © 2020 Martijn Smit</section></footer></div><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script></body></html>

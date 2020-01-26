@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Adding 100 Switches to vRealize Network Insight in 20 minutes · PowervRNI</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Adding a bunch of data sources to &lt;a href=&quot;https://lostdomain.org/tag/vrealize-network-insight/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;vRealize Network Insight&lt;/a&gt; can be tedious, especially when the number of data sources goes into the 100s. This is one of the reasons why &lt;a href=&quot;https://github.com/powervrni/powervrni&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PowervRNI&lt;/a&gt; exists, and it&#x27;s been helping organizations to add their entire network infrastructure to Network Insight in 1 go.&lt;/p&gt;"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Adding 100 Switches to vRealize Network Insight in 20 minutes · PowervRNI"/><meta property="og:type" content="website"/><meta property="og:url" content="https://powervrni.github.io/blog/2020/01/09/100-switches"/><meta property="og:description" content="&lt;p&gt;Adding a bunch of data sources to &lt;a href=&quot;https://lostdomain.org/tag/vrealize-network-insight/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;vRealize Network Insight&lt;/a&gt; can be tedious, especially when the number of data sources goes into the 100s. This is one of the reasons why &lt;a href=&quot;https://github.com/powervrni/powervrni&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;PowervRNI&lt;/a&gt; exists, and it&#x27;s been helping organizations to add their entire network infrastructure to Network Insight in 1 go.&lt;/p&gt;"/><meta property="og:image" content="https://powervrni.github.io/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://powervrni.github.io/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/powervrni-logo.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://powervrni.github.io/blog/atom.xml" title="PowervRNI Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://powervrni.github.io/blog/feed.xml" title="PowervRNI Blog RSS Feed"/><script type="text/javascript" src="/static/js/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/powervrni-logo.png" alt="PowervRNI"/><h2 class="headerTitleWithLogo">PowervRNI</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/getting-started" target="_self">Getting Started</a></li><li class=""><a href="/docs/examples" target="_self">Examples</a></li><li class=""><a href="/docs/videos" target="_self">Videos</a></li><li class=""><a href="https://github.com/powervrni/powervrni" target="_self">GitHub</a></li><li class="siteNavGroupActive"><a href="/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Recent Posts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Recent Posts</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/blog/2020/01/09/100-switches">Adding 100 Switches to vRealize Network Insight in 20 minutes</a></li><li class="navListItem"><a class="navItem" href="/blog/2019/11/19/whatsnew-17">PowervRNI 1.7: What&#x27;s New?</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/11/19/servicenow">Integrating ServiceNow with Network Insight</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/10/13/vrnicloud">Using PowervRNI to connect to Network Insight SaaS</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/09/03/snmp">Using PowervRNI to configure SNMP settings</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="lonePost"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2020/01/09/100-switches">Adding 100 Switches to vRealize Network Insight in 20 minutes</a></h1><p class="post-meta">January 9, 2020</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><div><span><p>Adding a bunch of data sources to <a href="https://lostdomain.org/tag/vrealize-network-insight/" target="_blank" rel="noopener noreferrer">vRealize Network Insight</a> can be tedious, especially when the number of data sources goes into the 100s. This is one of the reasons why <a href="https://github.com/powervrni/powervrni" target="_blank" rel="noopener noreferrer">PowervRNI</a> exists, and it's been helping organizations to add their entire network infrastructure to Network Insight in 1 go.</p>
+<p>There's an <a href="https://github.com/PowervRNI/powervrni/tree/master/examples" target="_blank" rel="noopener noreferrer">example script</a> in the PowervRNI GitHub repository called <strong>datasource-bulk-import.ps1</strong>, that allows you to add data sources of all types in bulk. To make getting started a little easier, I've recorded a video that focuses on adding 100 Cisco Nexus 5K switches to Network Insight in roughly 20 minutes.</p>
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/eyjwxU9H4Hk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>The only prereqs are to have PowerShell version 6+ installed, have the switch information ready, and have Network Insight up &amp; running.</p>
+<p>Please let me know by commenting on the video if you have any questions!</p>
+</span></div></div><div class="blogSocialSection"></div></div><div class="blog-recent"><a class="button" href="/blog">Recent Posts</a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/powervrni-logo.png" alt="PowervRNI" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/getting-started.html">Getting Started</a><a href="/docs/en/examples.html">Examples</a><a href="/docs/en/videos.html">Videos</a></div><div><h5>Community</h5><div class="social"><a href="https://twitter.com/powervrni" class="twitter-follow-button">Follow @powervrni</a></div></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/powervrni/powervrni">GitHub</a></div></section><section class="copyright">Copyright © 2020 Martijn Smit</section></footer></div><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script></body></html>

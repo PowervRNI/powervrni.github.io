@@ -1,0 +1,472 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Blog · PowervRNI</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="PowervRNI Documentation &amp; Examples"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Blog · PowervRNI"/><meta property="og:type" content="website"/><meta property="og:url" content="https://powervrni.github.io/"/><meta property="og:description" content="PowervRNI Documentation &amp; Examples"/><meta property="og:image" content="https://powervrni.github.io/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://powervrni.github.io/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/powervrni-logo.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://powervrni.github.io/blog/atom.xml" title="PowervRNI Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://powervrni.github.io/blog/feed.xml" title="PowervRNI Blog RSS Feed"/><script type="text/javascript" src="/static/js/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="blog"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/powervrni-logo.png" alt="PowervRNI"/><h2 class="headerTitleWithLogo">PowervRNI</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/getting-started" target="_self">Getting Started</a></li><li class=""><a href="/docs/examples" target="_self">Examples</a></li><li class=""><a href="/docs/videos" target="_self">Videos</a></li><li class=""><a href="https://github.com/powervrni/powervrni" target="_self">GitHub</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Recent Posts</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Recent Posts</h3><ul class=""><li class="navListItem"><a class="navItem" href="/blog/2020/01/09/100-switches">Adding 100 Switches to vRealize Network Insight in 20 minutes</a></li><li class="navListItem"><a class="navItem" href="/blog/2019/11/19/whatsnew-17">PowervRNI 1.7: What&#x27;s New?</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/11/19/servicenow">Integrating ServiceNow with Network Insight</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/10/13/vrnicloud">Using PowervRNI to connect to Network Insight SaaS</a></li><li class="navListItem"><a class="navItem" href="/blog/2018/09/03/snmp">Using PowervRNI to configure SNMP settings</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="posts"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2020/01/09/100-switches">Adding 100 Switches to vRealize Network Insight in 20 minutes</a></h1><p class="post-meta">January 9, 2020</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><article class="post-content"><div><span><p>Adding a bunch of data sources to <a href="https://lostdomain.org/tag/vrealize-network-insight/" target="_blank" rel="noopener noreferrer">vRealize Network Insight</a> can be tedious, especially when the number of data sources goes into the 100s. This is one of the reasons why <a href="https://github.com/powervrni/powervrni" target="_blank" rel="noopener noreferrer">PowervRNI</a> exists, and it's been helping organizations to add their entire network infrastructure to Network Insight in 1 go.</p>
+<p>There's an <a href="https://github.com/PowervRNI/powervrni/tree/master/examples" target="_blank" rel="noopener noreferrer">example script</a> in the PowervRNI GitHub repository called <strong>datasource-bulk-import.ps1</strong>, that allows you to add data sources of all types in bulk. To make getting started a little easier, I've recorded a video that focuses on adding 100 Cisco Nexus 5K switches to Network Insight in roughly 20 minutes.</p>
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/eyjwxU9H4Hk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+<p>The only prereqs are to have PowerShell version 6+ installed, have the switch information ready, and have Network Insight up &amp; running.</p>
+<p>Please let me know by commenting on the video if you have any questions!</p>
+</span></div></article></div><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2019/11/19/whatsnew-17">PowervRNI 1.7: What&#x27;s New?</a></h1><p class="post-meta">November 19, 2019</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><article class="post-content"><div><span><p>Version 1.7 of <a href="//github.com/powervrni/powervrni">PowervRNI</a> was released yesterday, and this post covers what's new in this version. If you're not familiar with <a href="//github.com/powervrni/powervrni">PowervRNI</a>, it is a PowerShell module that you can use to manage <a href="//vmware.com/go/vrni">vRealize Network Insight</a>. From adding data sources &amp; applications, to retrieve data from it, such a network flows, <a href="/tag/powervrni/">PowervRNI</a> covers most of the public API endpoints of Network Insight.</p>
+<h2>What's New?</h2>
+<p>A bunch! First off, it has been updated to support the new data sources and API calls that have been added in <a href="//blogs.vmware.com/management/2019/09/whats-new-with-vrealize-network-insight-5-0.html">Network Insight 5.0</a>. Second, I've added a few backlog items. I'll go through the changes below.</p>
+<h3>Data Sources</h3>
+<p><strong>New: Update-vRNIDataSource</strong></p>
+<p>Let's start with a good one. PowervRNI had to ability to add and remove data sources, but not edit them. Update-vRNIDataSource adds the possibility to update one or multiple data sources by updating their <strong>Nickname</strong>, <strong>Notes</strong>, or, most importantly, their <strong>Username</strong> and <strong>Password</strong> details. Imaging updating the login credentials of 52 switches, all at once. This example does just that:</p>
+<pre><code class="hljs">PS &gt; Get-vRNIDataSource -DataSourceType ciscoswitch | Update-vRNIDataSource -Username readonly -Password<span class="hljs-built_in"> secret
+</span></code></pre>
+<h2><a class="anchor" aria-hidden="true" id="new-data-sources"></a><a href="#new-data-sources" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>New Data Sources</h2>
+<p>Version 1. 7 adds support for the new data sources: Azure, VeloCloud, FortiManager, and Generic Router/Switch devices (UANI). Here are a few examples:</p>
+<h3><a class="anchor" aria-hidden="true" id="adding-a-velocloud-orchestrator"></a><a href="#adding-a-velocloud-orchestrator" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding a VeloCloud Orchestrator</h3>
+<pre><code class="hljs"><span class="hljs-string">PS</span> <span class="hljs-string">&gt;</span> <span class="hljs-string">New-vRNIDataSource</span> <span class="hljs-string">-DataSourceType</span> <span class="hljs-string">velocloud</span> <span class="hljs-string">-Username</span> <span class="hljs-string">vrni@vrni.cmbu.local</span> <span class="hljs-string">-Password</span> <span class="hljs-string">password</span> <span class="hljs-string">-CollectorVMId</span> <span class="hljs-string">$collectorId</span> <span class="hljs-string">-Nickname</span> <span class="hljs-string">VeloCloud</span> <span class="hljs-string">-FDQN</span> <span class="hljs-string">vcoxx.velocloud.net</span>
+
+<span class="hljs-attr">entity_id   :</span> <span class="hljs-number">10771</span><span class="hljs-string">:962:1907704854791059140</span>
+<span class="hljs-attr">entity_type :</span> <span class="hljs-string">VeloCloudDataSource</span>
+<span class="hljs-attr">fqdn        :</span> <span class="hljs-string">vcoxx.velocloud.net</span>
+<span class="hljs-attr">proxy_id    :</span> <span class="hljs-number">10771</span><span class="hljs-string">:901:8169725906866024439</span>
+<span class="hljs-attr">nickname    :</span> <span class="hljs-string">VeloCloud</span>
+<span class="hljs-attr">enabled     :</span> <span class="hljs-literal">True</span>
+<span class="hljs-attr">credentials :</span> <span class="hljs-string">@{username=vrni@vrni.cmbu.local;</span> <span class="hljs-string">password=}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="adding-an-azure-subscription"></a><a href="#adding-an-azure-subscription" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding an Azure subscription</h3>
+<pre><code class="hljs">PS &gt; New-vRNIDataSource -DataSourceType azure -CollectorVMId <span class="hljs-variable">$collectorId</span> -Nickname Azure-TenantID xxx-xxx-xxx-xxx -ApplicationID xxx-xxx-xxx-xxx -SecretKey<span class="hljs-built_in"> secret </span>-SubscriptionID xxx-xxx-xxx-xxx
+
+entity_id     : 10771:966:6062894549792355656
+entity_type   : AzureDataSource
+proxy_id      : 10771:901:8169725906866024439
+nickname      : Azure-Dev
+enabled       : <span class="hljs-literal">True</span>
+credentials   : @{<span class="hljs-attribute">azure_client</span>=xxx-xxx-xxx-xxx; <span class="hljs-attribute">azure_tenant</span>=xxx-xxx-xxx-xxx; <span class="hljs-attribute">azure_subscription</span>=xxx-xxx-xxx-xxx}
+flows_enabled : <span class="hljs-literal">True</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="adding-a-generic-switchrouter-device"></a><a href="#adding-a-generic-switchrouter-device" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding a Generic Switch/Router device</h3>
+<pre><code class="hljs">PS &gt; New-vRNIDataSource -DataSourceType generic-device -CollectorVMId $collectorId -IP <span class="hljs-number">10.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> -Nickname gw1
+
+entity_id   : <span class="hljs-number">10771</span>:<span class="hljs-number">963</span>:<span class="hljs-number">7000486714130462696</span>
+entity_type : GenericSwitchDataSource
+ip          : <span class="hljs-number">10.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+proxy_id    : <span class="hljs-number">10771</span>:<span class="hljs-number">901</span>:<span class="hljs-number">8169725906866024439</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="uploading-the-generic-switchrouter-zip-file-with-csvs"></a><a href="#uploading-the-generic-switchrouter-zip-file-with-csvs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Uploading the Generic Switch/Router ZIP file with CSVs</h3>
+<pre><code class="hljs">PS &gt; Get-vRNIDataSource -DataSourceType generic-device | where {<span class="hljs-variable">$_</span>.nickname -eq <span class="hljs-string">"gw1"</span>} | Update-vRNIDataSourceData -Zipfile ~/new-gw1-csv.zip
+
+entity_id   : 10771:963:1592443492322905846
+entity_type : GenericSwitchDataSource<span class="hljs-built_in">
+ip </span>         : 10.0.0.1
+proxy_id    : 10771:901:8169725906866024439
+nickname    : gw1
+enabled     : <span class="hljs-literal">True</span>
+</code></pre>
+<p>Adding Kubernetes and OpenShift clusters has also been fixed, by using the contents of your KubeConfig:</p>
+<pre><code class="hljs">PS &gt; <span class="hljs-variable">$nsxtId</span> = (Get-vRNIDataSource -DatasourceType nsxt | Where {<span class="hljs-variable">$_</span>.nickname -eq <span class="hljs-string">"my-nsxt-manager"</span>} | Select -ExpandProperty id)
+PS &gt; <span class="hljs-variable">$collectorId</span> = (Get-vRNINodes | Where {<span class="hljs-variable">$_</span>.ip_address -eq <span class="hljs-string">"10.0.0.11"</span>} | Select -ExpandProperty id)
+PS &gt; <span class="hljs-variable">$kubeconfig</span> = (Get-Content ~/.kube<span class="hljs-built_in">/config </span>| Out-String)
+PS &gt; New-vRNIDataSource -DataSourceType kubernetes -Nickname k8s-cluster-1 -CollectorVMId <span class="hljs-variable">$collectorId</span> -NSXTManagerID <span class="hljs-variable">$nsxtId</span> -KubeConfig <span class="hljs-variable">$kubeconfig</span>
+</code></pre>
+<p>F5 Load Balancer support has been fixed. The API in 4.2 didn't work, as the data source had a different entity type.</p>
+<pre><code class="hljs"><span class="hljs-string">PS</span> <span class="hljs-string">&gt;</span> <span class="hljs-string">New-vRNIDataSource</span> <span class="hljs-string">-DataSourceType</span> <span class="hljs-string">f5-bigip</span> <span class="hljs-string">-Username</span> <span class="hljs-string">admin</span> <span class="hljs-string">-Password</span> <span class="hljs-string">password</span> <span class="hljs-string">-CollectorVMId</span> <span class="hljs-string">$collectorId</span> <span class="hljs-string">-Nickname</span> <span class="hljs-string">F5</span> <span class="hljs-string">-FDQN</span> <span class="hljs-string">f5.lab.local</span>
+
+<span class="hljs-attr">entity_id :</span> <span class="hljs-number">10771</span><span class="hljs-string">:952:7880684499039039792</span>
+<span class="hljs-attr">entity_type :</span> <span class="hljs-string">F5BIGIPDataSource</span>
+<span class="hljs-attr">fqdn :</span> <span class="hljs-string">f5.lab.local</span>
+<span class="hljs-attr">proxy_id :</span> <span class="hljs-number">10771</span><span class="hljs-string">:901:8169725906866024439</span>
+<span class="hljs-attr">nickname :</span> <span class="hljs-string">F5</span>
+<span class="hljs-attr">enabled :</span> <span class="hljs-literal">True</span>
+<span class="hljs-attr">credentials :</span> <span class="hljs-string">@{username=admin}</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="setting-nsx-v-controller-passwords"></a><a href="#setting-nsx-v-controller-passwords" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setting NSX-v Controller Passwords</h3>
+<p>Network Insight collects routing information from the NSX-v controllers. To do so, it needs the password to log in to those controllers. I've added a new cmdlet called Update-vRNINSXvControllerPassword to do this:</p>
+<pre><code class="hljs">PS &gt; Get-vRNIDataSource -DatasourceType nsxv | Update-vRNINSXvControllerClusterPassword -Password<span class="hljs-built_in"> secret
+</span></code></pre>
+<h3><a class="anchor" aria-hidden="true" id="support-for-nsx-v-and-nsx-t-virtual-infra-latency"></a><a href="#support-for-nsx-v-and-nsx-t-virtual-infra-latency" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Support for NSX-v and NSX-T Virtual Infra Latency</h3>
+<p>From NSX-v 6.4.5+ and NSX-T 2.5+ - NSX can stream telemetry on latency between VTEPs, physical and virtual NICs. NSX is configured by Network Insight and the new -NSXEnableLatency $True parameter on New-vRNIDataSource, will do that when adding the NSX Manager as a data source. Example:</p>
+<pre><code class="hljs">PS &gt; New-vRNIDataSource -DataSourceType nsxv -NSXEnableLatency <span class="hljs-variable">$True</span> -FDQN mgr.nsx.local -Username admin -Password<span class="hljs-built_in"> secret </span>-Nickname mgr.nsx.local -CollectorVMId <span class="hljs-variable">$collectorId</span> -Enabled <span class="hljs-variable">$True</span> -NSXEnableCentralCLI <span class="hljs-variable">$True</span> -NSXEnableIPFIX <span class="hljs-variable">$True</span> -NSXvCenterID <span class="hljs-variable">$vcId</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="a-better-experience-with-connect-vrniserver"></a><a href="#a-better-experience-with-connect-vrniserver" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>A better experience with Connect-vRNIServer</h3>
+<p>Before 1.7, when connecting with LDAP/Active Directory credentials, the Connect-vRNIServer cmdlet looked as following:</p>
+<pre><code class="hljs">Connect-vRNIServer -Server platform -Username martijn@ld.local -Domain ld.local -Password<span class="hljs-built_in"> secret
+</span></code></pre>
+<p>Maybe you've noticed the domain name is mentioned twice, both in the <strong>Username</strong> and <strong>Domain</strong> values. This was mostly due to the input that the vRNI API requires. It's a small change, but now, PowervRNI now detects the usage of a non-local domain and allow you to omit the <strong>Domain</strong> parameter.</p>
+<pre><code class="hljs">Connect-vRNIServer -Server platform -Username martijn@ld.local -Password<span class="hljs-built_in"> secret
+</span></code></pre>
+<p>If you have local vRNI accounts with domains other than local, you can make sure it authenticates locally by still adding the parameters: <strong>-Domain LOCAL</strong>, *or* <strong>-UseLocalAuth</strong>.</p>
+<h3><a class="anchor" aria-hidden="true" id="get-vrnikubernetesservices"></a><a href="#get-vrnikubernetesservices" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get-vRNIKubernetesServices</h3>
+<p>Network Insight can pull Kubernetes information (services, namespaces, clusters, nodes, etc.) and the networking details behind these containers. But, there's only 1 public API added to retrieve information, and it's to retrieve a list of the Kubernetes services:</p>
+<pre><code class="hljs">PS &gt; Get-vRNIKubernetesServices -Limit <span class="hljs-number">1</span>
+
+entity_id          : <span class="hljs-number">10771</span>:<span class="hljs-number">1504</span>:<span class="hljs-number">7006772991589105315</span>
+name               : metrics-server
+entity_type        : KubernetesService
+vendor_id          : c88a10d1-e04c<span class="hljs-number">-11e9</span>-a348<span class="hljs-number">-0050569525</span>d5
+annotations        : {kubectl.kubernetes.io/last-applied-configuration}
+labels             : {kubernetes.io/name}
+creation_timestamp : <span class="hljs-number">09</span>/<span class="hljs-number">26</span>/<span class="hljs-number">2019</span> <span class="hljs-number">10</span>:<span class="hljs-number">59</span>:<span class="hljs-number">59</span>
+<span class="hljs-keyword">namespace</span>          : @{entity_id=<span class="hljs-number">10771</span>:<span class="hljs-number">1503</span>:<span class="hljs-number">2077432250506315584</span>}
+cluster_ip         : @{ip_address=<span class="hljs-number">10.100</span><span class="hljs-number">.200</span><span class="hljs-number">.71</span>;netmask=<span class="hljs-number">255.255</span><span class="hljs-number">.255</span><span class="hljs-number">.255</span>; network_address=<span class="hljs-number">10.100</span><span class="hljs-number">.200</span><span class="hljs-number">.71</span>/<span class="hljs-number">32</span>}
+loadbalancer_ip    : @{ip_address=; netmask=; network_address=}
+type               : ClusterIP
+external_ips       : {}
+selectors          : {k8s-app}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="set-vrniuserpassword"></a><a href="#set-vrniuserpassword" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set-vRNIUserPassword</h3>
+<p>Network Insight 5.0 also added a new API endpoint to manage passwords of local users. The new cmdlet Set-vRNIUserPassword allows you to change your own password, or as an administrator; change passwords of all users.</p>
+<pre><code class="hljs">PS &gt; <span class="hljs-keyword">Set</span>-vRNIUserPassword -Username <span class="hljs-keyword">admin</span>@<span class="hljs-keyword">local</span> -NewPassword newpassword
+</code></pre>
+<p>or<br /></p>
+<pre><code class="hljs">PS &gt; Set-vRNIUserPassword -Username test@local.corp
+PowerShell credential request
+Input the new password
+Password <span class="hljs-keyword">for</span><span class="hljs-built_in"> user </span>test@local.corp: ********
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="other-things"></a><a href="#other-things" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Other things</h2>
+<ul>
+<li>Fixed adding Huawei switches as data sources by using the new DataSourceType in vRNI 5.0.</li>
+<li>Fixed returning multiple entities with the same name (e.g. same VM names with Get-vRNIVM)</li>
+</ul></span></div></article></div><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2018/11/19/servicenow">Integrating ServiceNow with Network Insight</a></h1><p class="post-meta">November 19, 2018</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><article class="post-content"><div><span><p>In a previous post, <a href="https://lostdomain.org/2018/11/08/integrating-vrealize-automation-with-network-insight/">Integrating vRealize Automation with Network Insight</a>, I covered how greenfield applications can be automatically pushed into vRealize Network Insight to provide application context with the analytics of Network Insight. This post is about importing brownfield into Network Insight to get insights into the behavior of your existing applications. Specifically, importing CMDB information from ServiceNow.</p>
+<h2><a class="anchor" aria-hidden="true" id="cmdb"></a><a href="#cmdb" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>CMDB</h2>
+<p>In the case of existing applications, your Configuration Management Database (CMDB) should be your source of truth. There are a lot of CMDB products out there, but <a href="https://www.servicenow.com/products/servicenow-platform/configuration-management-database.html" target="_blank" rel="noopener">ServiceNow</a> (SNOW) is a popular one that a lot of organisations use. That's why this example is based on that specific CMDB, but this can apply to any and all CMDBs. As long as you have the ability to export data or retrieve data from an API; this will work.</p>
+<h2><a class="anchor" aria-hidden="true" id="servicenow-requirements"></a><a href="#servicenow-requirements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ServiceNow Requirements</h2>
+<p>Honestly, there are not many requirements on the SNOW side for this to work. The only thing this procedure will depend on is that there are application constructs which have relationships towards the VMs that host the application. There doesn't have to be a specific hierarchy in the relations, they only need to exist. Here's an example of a relationship tree (as seen through the SNOW dependancy viewer):</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/11/vrni-snow-dependancy-viewer.png"><img class="alignnone size-large wp-image-4891" src="https://lostdomain.org/wp-content/uploads/2018/11/vrni-snow-dependancy-viewer-1024x284.png" alt="SNOW Dependancy Viewer" width="788" height="219" /></a></p>
+<p>I have declared a top-level application, attached that to a Web Tier which runs on 2 VMs. Those 2 web VMs make use of the App Tier, which runs on 2 App VMs. Finally, those 2 App VMs make use of a DB Tier, which runs on a single VM.</p>
+<p>The script I've published below takes this tree and translates it into Network Insight application constructs. The only thing to take note of is that it uses the naming scheme of the VM to determine the name of the tier. For example; with VM VMworld-3TA01-Web-01, the tier will be named Web (it uses the second to last field when split on the character "-"). If you want to change that syntax, have a look at <a href="https://github.com/PowervRNI/powervrni/blob/master/examples/cmdb-import-from-servicenow.ps1#L56" target="_blank" rel="noopener">line 56</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="script"></a><a href="#script" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Script</h2>
+<p>You will see a common thread throughout my automation posts; PowerShell. ;-) This script is no different and uses <a href="https://github.com/PowervRNI/powervrni" target="_blank" rel="noopener">PowervRNI</a> to simplify talking to Network Insight. That means PowervRNI is a <strong>requirement</strong>, it'll fail if you don't have it installed (<strong>Install-Module PowervRNI</strong>).</p>
+<p>Find the <a href="https://github.com/PowervRNI/powervrni/blob/master/examples/cmdb-import-from-servicenow.ps1" target="_blank" rel="noopener">ServiceNow to Network Insight import script here.</a></p>
+<p>Before running the script, edit it to reflect your environment. It doesn't take parameters just yet, so configure your SNOW and Network Insight details on the top of the script:</p>
+<pre><code class="hljs"><span class="hljs-comment">## Start editing here ##</span>
+
+<span class="hljs-comment"># ServiceNow configuration; login credentials &amp;amp; URL</span>
+$CONFIG_SNOW_USER = <span class="hljs-string">"admin"</span>
+$CONFIG_SNOW_PASS = <span class="hljs-string">"VMware!"</span>
+$CONFIG_SNOW_URL  = <span class="hljs-string">"https://myinstance.service-now.com"</span>
+
+<span class="hljs-comment"># vRealize Network Insight config; login credentials &amp;amp; URL</span>
+$CONFIG_vRNI_SERVER = <span class="hljs-string">"platform.networkinsight.lab.local"</span>
+$CONFIG_vRNI_USER   = <span class="hljs-string">"admin@local"</span>
+$CONFIG_vRNI_PASS   = <span class="hljs-string">"VMware1!"</span>
+
+<span class="hljs-comment"># We're using a filter to find only applications in ServiceNow with this in its name</span>
+$APP_FILTER         = <span class="hljs-string">"VMworld"</span>
+
+<span class="hljs-comment">## Stop editing here ##</span>
+</code></pre>
+<p>After editing those variables, you're free to run it. It will spew out errors and grind to a halt if any of those variables are incorrect. ;-)</p>
+<h2><a class="anchor" aria-hidden="true" id="output"></a><a href="#output" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Output</h2>
+<p>When running the script, it will tell you what it discovers and what it'll add it to Network Insight. Here's an example of how it can look:</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/11/vrni-snow-import-example.png"><img class="alignnone size-large wp-image-4897" src="https://lostdomain.org/wp-content/uploads/2018/11/vrni-snow-import-example-1024x301.png" alt="Import Example" width="788" height="232" /></a></p>
+<h2><a class="anchor" aria-hidden="true" id="demo"></a><a href="#demo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Demo</h2>
+<p>If you would like to see whether this is even going to work for you, have a look at the demo I've put together. You'll be able to get a detailed view of what's in SNOW which gets exported. If there's anything that would block you from exporting it this way (for instance, you have a different configuration inside SNOW), please let me know!</p>
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/NLRPEviVo58" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen"></iframe></p></span></div></article></div><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2018/10/13/vrnicloud">Using PowervRNI to connect to Network Insight SaaS</a></h1><p class="post-meta">October 13, 2018</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><article class="post-content"><div><span><p>VMware is pretty heavily invested in the cloud. Not only to manage your cloud environments, but also products as Software-as-a-Service offerings, next to the regular on-premises offerings. At the time of this post, there are 19 VMware products that you can purchase via the SaaS model. This is a variation between models like VMware Cloud on AWS where you get an Infrastructure-as-a-Service and Network Insight where you get the product hosted in the cloud.</p>
+<h2><a class="anchor" aria-hidden="true" id="network-insight-saas"></a><a href="#network-insight-saas" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Network Insight SaaS</h2>
+<p>So there's a SaaS version of Network Insight. Effectively, this means that the Platform (the user-interface and data repository) is hosted in the cloud and VMware takes care of keeping it available, scalable and the lifecycle management (upgrades). It also saves you from running a pretty heavy VM on-prem as well.</p>
+<p>You'll get access to the Network Insight interface via <a href="https://cloud.vmware.com" target="_blank" rel="noopener">cloud.vmware.com</a>, which is exactly the same product and interface as you would get when you host it yourself. The only difference being the color scheme that matches the rest of the cloud services. This also means you have a Collector VM to collect data from data sources (vCenter, NSX, physical network devices, AWS, etc). You would typically host the Collector VM yourself, as it needs access to your internal infrastructure. But the Collector is the only thing you have to deploy, the rest is taken care of.</p>
+<p>One of the cool parts of it being exactly the same product is that the API is also exactly the same. This means that PowervRNI can also be used to talk to the SaaS variant. There's one minor difference, as authentication on the Cloud Services Platform (CSP) is centralized to provide a single-sign-on experience on all services. So no separate authentication, but using tokens which are valid for all services.</p>
+<h2><a class="anchor" aria-hidden="true" id="cloud-services-platform-api-tokens"></a><a href="#cloud-services-platform-api-tokens" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cloud Services Platform API Tokens</h2>
+<p>Using the CSP API is pretty straightforward: so-called <strong>Refresh Tokens</strong> can be created via your My Account portal and are valid for 6 months. Whenever you want to use the API of a service, first exchange the Refresh Token <a href="https://console.cloud.vmware.com/csp/gateway/am/api/swagger-ui.html#/Authentication/getAccessTokenByApiRefreshTokenUsingPOST" target="_blank" rel="noopener">for an access token</a>. Then use the access token to access the service you want to talk to (i.e. Network Insight).</p>
+<p>To create a Refresh Token, log into https://cloud.vmware.com, go to your console. Then 1) access your menu, 2) go to My Account, 3) Select the API Tokens menu on the My Account page and 4) Select New Token to create a new token.</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/10/ni-saas-new-refresh-token.png"><img class="alignnone size-large wp-image-4849" src="https://lostdomain.org/wp-content/uploads/2018/10/ni-saas-new-refresh-token-1024x458.png" alt="" width="788" height="352" /></a></p>
+<p>After creating it, the Refresh Token will appear in a long string format. Copy it and start a PowerShell window with PowervRNI (1.4+) loaded.</p>
+<h2><a class="anchor" aria-hidden="true" id="connect-niserver"></a><a href="#connect-niserver" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Connect-NIServer</h2>
+<p>Usually, you would use Connect-vRNIServer to connect to an on-prem instance of Network Insight - which hasn't changed. The only difference between using on-prem Network Insight and the SaaS variant is the command to connect to it. If you're connecting to the SaaS variant, use <strong>Connect-NIServer -RefreshToken $yourtoken</strong></p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/10/powervrni-connect-niserver.png"><img class="alignnone size-large wp-image-4850" src="https://lostdomain.org/wp-content/uploads/2018/10/powervrni-connect-niserver-1024x472.png" alt="" width="788" height="363" /></a></p>
+<h2><a class="anchor" aria-hidden="true" id="thats-it"></a><a href="#thats-it" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>That's it!</h2>
+<p>After logging into CSP and getting back the access token, you can use the rest of the PowervRNI commands as you would with on-prem Network Insight.</p></span></div></article></div><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2018/09/03/snmp">Using PowervRNI to configure SNMP settings</a></h1><p class="post-meta">September 3, 2018</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><article class="post-content"><div><span><p>Version 1.2 of PowervRNI was just released and it contains 2 new cmdlets:&nbsp;</p>
+<ul><li>Get-vRNIDataSourceSNMPConfig</li><li>Set-vRNIDataSourceSNMPConfig</li></ul>
+<p>You can use these cmdlets to see and update SNMP configuration on specific data sources. All Arista, Brocade, Cisco, Dell, and Juniper devices are data sources where SNMP can be enabled for richer data collection. This basically turns on interface counter collections, so you can have pretty graphs like this:&nbsp;</p>
+<p><img src="https://lostdomain.org/wp-content/uploads/2018/09/vrni-switch-port-metrics-2.png" alt="" class="wp-image-4794"/></p>
+<h2><a class="anchor" aria-hidden="true" id="examples"></a><a href="#examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h2>
+<p>To give you an idea of how to use these new cmdlets, check out the examples below. Of course, there is also documentation available in the module itself, viewable via the <strong>Get-Help</strong> cmdlet.&nbsp;</p>
+<h3><a class="anchor" aria-hidden="true" id="get-vrnidatasourcesnmpconfig"></a><a href="#get-vrnidatasourcesnmpconfig" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get-vRNIDataSourceSNMPConfig</h3>
+<p>It's quite a mouthful, but the naming convention of PowerShell is clear: name it after what it does. ;-) So this cmdlet retrieves the SNMP configuration (if there's any present) from a data source. It uses the values from <strong>Get-vRNIDataSource</strong> as input. Here's an example that goes through all Cisco switch data sources:</p>
+<pre><code class="hljs">PS C:\&gt; Get-vRNIDataSource -DataSourceType ciscoswitch | Get-vRNIDataSourceSNMPConfig
+
+<span class="hljs-built_in">..</span>.snip<span class="hljs-built_in">..</span>.
+snmp_enabled   : <span class="hljs-literal">False</span>
+snmp_version   : v2c
+config_snmp_2c : @{<span class="hljs-attribute">community_string</span>=string}
+config_snmp_3  : @{<span class="hljs-attribute">username</span>=string; <span class="hljs-attribute">context_name</span>=string; <span class="hljs-attribute">authentication_type</span>=NO_AUTH; <span class="hljs-attribute">authentication_password</span>=string; <span class="hljs-attribute">privacy_type</span>=AES; <span class="hljs-attribute">privacy_password</span>=string}
+<span class="hljs-built_in">..</span>.snip<span class="hljs-built_in">..</span>.
+</code></pre>
+<p>As the result, you can see the SNMP configuration is disabled for this example. If it were enabled, you would see the details it's using to poll the data source.</p>
+<h3><a class="anchor" aria-hidden="true" id="set-vrnidatasourcesnmpconfig"></a><a href="#set-vrnidatasourcesnmpconfig" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set-vRNIDataSourceSNMPConfig</h3>
+<p>As the counterpart to <strong>Get-vRNIDataSourceSNMPConfig</strong>, the cmdlet <strong>Set-vRNIDataSourceSNMPConfig</strong> updates the SNMP configuration of a data source. It also takes the output of <strong>Get-vRNIDataSource</strong> as input, so you can use it in a piped manner.&nbsp;</p>
+<pre><code class="hljs">PS C:\&gt; <span class="hljs-symbol">$</span>snmpOptions = @{ <span class="hljs-string">"Enabled"</span> = <span class="hljs-symbol">$</span>true; <span class="hljs-string">"Community"</span> = <span class="hljs-string">"snmpcommunity"</span>; }
+PS C:\&gt; Get-vRNIDataSource | Where {<span class="hljs-symbol">$</span>_.nickname -<span class="hljs-keyword">eq</span> <span class="hljs-string">"Core01"</span>} | <span class="hljs-keyword">Set</span>-vRNIDataSourceSNMPConfig <span class="hljs-comment">@snmpOptions</span>
+</code></pre>
+<p>As a result, the data source with the nickname Core01 will get its SNMP configuration updated to use SNMP v2c and use the community <strong><g class="gr_ gr_3 gr-alert gr_spell gr_inline_cards gr_run_anim ContextualSpelling ins-del multiReplace" id="3" data-gr-id="3">snmpcommunity</g></strong>, and <g class="gr_ gr_17 gr-alert sel gr_spell gr_replaced gr_inline_cards gr_disable_anim_appear ContextualSpelling ins-del multiReplace" id="17" data-gr-id="17">of course</g> enable SNMP collection.&nbsp;</p>
+<h2><a class="anchor" aria-hidden="true" id="feedback"></a><a href="#feedback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Feedback</h2>
+<p>As interest in PowervRNI grows, I'm seeing a growing number of people using it to automate installation and operational tasks. Please continue to give me feedback on the module so we can continuously improve it!</p>
+</span></div></article></div><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2018/03/05/gallery">PowervRNI is now on PowerShell Gallery</a></h1><p class="post-meta">March 5, 2018</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><article class="post-content"><div><span><p>PowerShell is about making things easy and consumable. Same goes for <a href="https://lostdomain.org/2018/01/02/introducing-powervrni/">PowervRNI</a>, making repetitive tasks in vRealize Network Insight easier and make it possible to extract information from vRNI.</p>
+<p>It's not that easy to load a custom module into PowerShell though, you have to download 1 or 2 files, then load it into your PowerShell session by referencing those local files. The <a href="https://www.powershellgallery.com" target="_blank" rel="noopener">PowerShell Gallery</a> is a pretty awesome way to also make module management very easy. All you have to do is use the <strong>Install-Module</strong> command and it downloads and installs the module for you.</p>
+<p>For the module authors, it's also pretty easy to put their modules onto PowerShell Gallery. As I found out this weekend by putting <a href="https://www.powershellgallery.com/packages/PowervRNI" target="_blank" rel="noopener">PowervRNI on there</a>.</p>
+<h1><a class="anchor" aria-hidden="true" id="install-module-powervrni"></a><a href="#install-module-powervrni" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install-Module PowervRNI</h1>
+<p>So, all you have to do to install PowervRNI, using the <strong>Install-Module</strong> command and the module will be downloaded from the PowerShell Gallery and installed. Then right away, you can load up the module by using <strong>Import-Module</strong> and you're good to go.</p>
+<p>Here's an example:</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/03/powervrni-install-module.png"><img class="aligncenter size-large wp-image-22479" src="https://lostdomain.org/wp-content/uploads/2018/03/powervrni-install-module-1024x650.png" alt="Install PowervRNI" width="1024" height="650" /></a></p></span></div></article></div><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2018/02/12/applications">Using PowervRNI to Quickly Add Applications</a></h1><p class="post-meta">February 12, 2018</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><article class="post-content"><div><span><h2><a class="anchor" aria-hidden="true" id="applications"></a><a href="#applications" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Applications</h2>
+<p>Introduced in vRealize Network Insight 3.2 in the begin of 2017, Applications are logical containers which can contain the structure of applications (including tiering). You can use these application containers to better visualize what network flows are going between specific applications or even application tiers. Next to insights into your applications, you can also use it to take a per-application approach to micro-segmentation, using the planner feature in Network Insight.</p>
+<p>The first thing you should know is that the application container has a few concepts to it. The application itself, then tiers that make up the application (for instance, the easy 3 tier app: Web, App and Database tiers) and inside the tiers there are rules that determine what VMs will be placed in that tier. These rules can be based on the same criteria as you can use in the search engine, so you can get really creative. Below is a visual explanation of the different concepts:</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-structure.png"><img class="aligncenter size-large wp-image-22392" src="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-structure-1024x552.png" alt="" width="1024" height="552" /></a></p>
+<h2><a class="anchor" aria-hidden="true" id="creating-applications-with-powervrni"></a><a href="#creating-applications-with-powervrni" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating Applications with PowervRNI</h2>
+<p>So, to automate the creation of the application you need to be able to create applications, then the tier and the rules that will place VMs into the tiers. Here are the cmdlets in PowervRNI which will help:</p>
+<ul>
+<li>Get-vRNIApplication</li>
+<li>Get-vRNIApplicationTier</li>
+<li>New-vRNIApplication</li>
+<li>New-vRNIApplicationTier</li>
+<li>Remove-vRNIApplication</li>
+<li>Remove-vRNIApplicationTier</li>
+</ul>
+<p>To create a new application, first use <strong>New-vRNIApplication</strong> to create the container and then <strong>New-vRNIApplicationTier</strong> to fill that container.</p>
+<h2><a class="anchor" aria-hidden="true" id="using-new-vrniapplication"></a><a href="#using-new-vrniapplication" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using New-vRNIApplication</h2>
+<p>An application is just an empty container, so creating it is easy and straightforward:</p>
+<pre><code class="hljs"><span class="hljs-string">PS</span> <span class="hljs-string">/&gt;</span> <span class="hljs-string">New-vRNIApplication</span> <span class="hljs-string">-Name</span> <span class="hljs-string">"3 Tier App"</span>
+
+<span class="hljs-attr">entity_id          :</span> <span class="hljs-number">14307</span><span class="hljs-string">:561:939980817</span>
+<span class="hljs-attr">name               :</span> <span class="hljs-number">3</span> <span class="hljs-string">Tier</span> <span class="hljs-string">App</span>
+<span class="hljs-attr">entity_type        :</span> <span class="hljs-string">Application</span>
+<span class="hljs-attr">create_time        :</span> <span class="hljs-number">1518451535762</span>
+<span class="hljs-attr">created_by         :</span> <span class="hljs-string">admin@local</span>
+<span class="hljs-attr">last_modified_time :</span> <span class="hljs-number">0</span>
+<span class="hljs-attr">last_modified_by   :</span>
+</code></pre>
+<p>That's it. The return value is the Application object, which contains the newly created entity id and a few other details. After running this, you can verify using the interface:</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-container-3ta.png"><img class="aligncenter size-large wp-image-22395" src="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-container-3ta-1024x300.png" alt="" width="1024" height="300" /></a></p>
+<h2><a class="anchor" aria-hidden="true" id="using-new-vrniapplicationtier"></a><a href="#using-new-vrniapplicationtier" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using New-vRNIApplicationTier</h2>
+<p>Once you have an application container, you can define the tiers. Due to some limitations of the current vRNI API, you can currently only use VM names and NSX Security Groups to define the tier membership. Below is an example that uses both VM names and security groups:</p>
+<pre><code class="hljs">PS /&gt; <span class="hljs-variable">$security_group_id</span> = (Get-vRNISecurityGroup SG-3Tier-Web).entity_id
+PS /&gt; Get-vRNIApplication <span class="hljs-string">"3 Tier App"</span> | New-vRNIApplicationTier -Name Web-Tier -Filters (<span class="hljs-string">"name = '3TA-Web0*'"</span>, <span class="hljs-string">"security_groups.entity_id = '<span class="hljs-variable">$security_group_id</span>'"</span>)
+
+entity_id                 : 14307:562:323469247
+name                      : Web-Tier
+entity_type               : Tier
+group_membership_criteria : {@{<span class="hljs-attribute">membership_type</span>=SearchMembershipCriteria; search_membership_criteria=}, @{<span class="hljs-attribute">membership_type</span>=SearchMembershipCriteria; search_membership_criteria=}}
+application               : @{<span class="hljs-attribute">entity_id</span>=14307:561:788532360; <span class="hljs-attribute">entity_type</span>=Application}
+</code></pre>
+<p>I'll go through what happened here step by step:</p>
+<ol>
+<li>First, we find the entity ID of the security group called SG-3Tier-Web and store it in $security_group_id</li>
+<li>Then we use <strong>New-vRNIApplicationTier</strong> to create a new tier called Web-Tier with 2 rules:
+<ul>
+<li>Put in all VMs where the name begins with 3TA-Web0</li>
+<li>Put in all VMs that are in the security group called SG-3Tier-Web</li>
+</ul>
+</li>
+</ol>
+<p>If you then validate this in the interface, you'll see a newly added Web-Tier with the provides rules in it. You'll also notice that there's a "2 Vms" behind the rule. This is because I have 2 VMs called 3TA-Web01 and 3TA-Web02. Both are also in the security group ST-3Tier-Web.</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-container-3ta-tier-web.png"><img class="aligncenter size-large wp-image-22396" src="https://lostdomain.org/wp-content/uploads/2018/02/vrni-application-container-3ta-tier-web-1024x424.png" alt="" width="1024" height="424" /></a></p>
+<h2><a class="anchor" aria-hidden="true" id="adding-in-bulk"></a><a href="#adding-in-bulk" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding in Bulk</h2>
+<p>Using the cmdlets described above is pretty quick, but imagine doing that a couple 100-times in a greenfield environment. Not fun.</p>
+<p>With that in mind, I've put up an example on how to import a lot of applications at once in the <a href="https://github.com/PowervRNI/powervrni/tree/master/examples" target="_blank" rel="noopener">examples/</a> directory called: <a href="https://github.com/PowervRNI/powervrni/blob/master/examples/application-bulk-import.ps1" target="_blank" rel="noopener">application-bulk-import.ps1</a></p>
+<p>Similar to the data source bulk import script, the application bulk import script uses a CSV file as input. The CSV file has the applications, tiers and security groups and/or VM names in it. Here's an example of how it should be formatted.</p>
+<pre><code class="hljs">Application;Tier;Security Group;VM Names
+App01;Web;;App01-VM1-Web,App01-VM2-Web
+App01;App;ST-App01-App;App01-VM*-App
+App01;DB;ST-App01-DB;
+App02;NoTier;ST-App02;
+App03;Web;;App03-Web*
+App03;DB;;App03-DB*
+</code></pre>
+<p><small>* Yes, it’s technically not a CSV as I used ‘;’ for the separations. But this way Excel can read it into columns. ;-)</small></p>
+<p>As you might notice, the same Application can contain multiple lines. This is because each line represents an application tier and you can have multiple tiers in 1 single application. You can use either the <strong>Security Group</strong> or <strong>VM Names</strong> column to create the filters, or you can use both columns if the VMs need to have a certain name and be a member of a specific security group.</p>
+<h3><a class="anchor" aria-hidden="true" id="usage"></a><a href="#usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage</h3>
+<p>Once you have the CSV filled with data, you can run the script as follows:</p>
+<pre><code class="hljs">PS ~/PowervRNI/examples&gt; ./application-bulk-import.ps1 -ApplicationsCSV ./application-bulk-import.csv
+[02/12/2018 20:06:21] Processing application App01<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:21] Application App01 <span class="hljs-keyword">not</span> found, so creating it<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:21] Added Tier <span class="hljs-string">'Web'</span> <span class="hljs-keyword">to</span> application <span class="hljs-string">'App01'</span> with filters: name = <span class="hljs-string">'App01-VM1-Web'</span> <span class="hljs-keyword">or</span> name = <span class="hljs-string">'App01-VM2-Web'</span>
+[02/12/2018 20:06:22] Processing application App01<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:24] Added Tier <span class="hljs-string">'App'</span> <span class="hljs-keyword">to</span> application <span class="hljs-string">'App01'</span> with filters: security_groups.entity_id = <span class="hljs-string">'14307:82:1984513309'</span> name = <span class="hljs-string">'App01-VM*-App'</span>
+[02/12/2018 20:06:25] Processing application App01<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:27] Wanted <span class="hljs-keyword">to</span> use Security<span class="hljs-built_in"> Group </span>SG-App01-DB, but it doesn<span class="hljs-string">'t exist - so skipping this rule!
+[02/12/2018 20:06:27] Skipping Tier '</span>DB<span class="hljs-string">' in application '</span>App01<span class="hljs-string">' because filters are empty!
+[02/12/2018 20:06:27] Processing application App02..
+[02/12/2018 20:06:27] Application App02 not found, so creating it..
+[02/12/2018 20:06:29] Wanted to use Security Group SG-App02, but it doesn'</span>t exist - so skipping this rule!
+[02/12/2018 20:06:29] Skipping Tier <span class="hljs-string">'NoTier'</span> <span class="hljs-keyword">in</span> application <span class="hljs-string">'App02'</span> because filters are empty!
+[02/12/2018 20:06:29] Processing application App03<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:29] Application App03 <span class="hljs-keyword">not</span> found, so creating it<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:29] Added Tier <span class="hljs-string">'Web'</span> <span class="hljs-keyword">to</span> application <span class="hljs-string">'App03'</span> with filters: name = <span class="hljs-string">'App03-Web*'</span>
+[02/12/2018 20:06:30] Processing application App03<span class="hljs-built_in">..</span>
+[02/12/2018 20:06:30] Added Tier <span class="hljs-string">'DB'</span> <span class="hljs-keyword">to</span> application <span class="hljs-string">'App03'</span> with filters: name = <span class="hljs-string">'App03-DB*'</span>
+</code></pre>
+<p>That's it! Let me know if you have any questions. PowervRNI can be found on <a href="https://github.com/PowervRNI/powervrni" target="_blank" rel="noopener">GitHub</a> and on <a href="https://twitter.com/PowervRNI" target="_blank" rel="noopener">twitter</a> for the latest news.</p>
+</span></div></article></div><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2018/01/23/datasources">Using PowervRNI to Quickly Add Data Sources</a></h1><p class="post-meta">January 23, 2018</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><article class="post-content"><div><span><p>This is the first post in a series on how to use <a href="https://lostdomain.org/2018/01/introducing-powervrni/">PowervRNI</a> to manage your vRealize Network Insight environment. Starting with <a href="https://docs.vmware.com/en/VMware-Network-Insight/services/Using-VMware-Network-Insight/GUID-66937AC9-D552-4E86-A9D9-5EB11F238BFC.html" target="_blank" rel="noopener">Data Sources</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="data-sources"></a><a href="#data-sources" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Data Sources</h2>
+<p>Brief background; data sources in vRNI are endpoints from which vRNI retrieves information from. Examples are: vCenter, NSX, Switches, Routers, Firewalls, an AWS account or converged infrastructure systems like Cisco UCS or HP OneView.</p>
+<p>Adding data sources is usually only performed when vRNI is installed into the environment and every time a new endpoint is added to your environment (for example a new vCenter environment, or when a new switch is plugged in).</p>
+<p>Why would you want to automate adding data sources? First off, adding all your data sources upon installation can be tedious and repetitive work. And if you are one of those companies who have automated the deployment of a new top-of-rack switch (like some of my customers), you would also want that switch to automatically appear in vRNI.</p>
+<h2><a class="anchor" aria-hidden="true" id="using-new-vrnidatasource"></a><a href="#using-new-vrnidatasource" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using New-vRNIDataSource</h2>
+<p>One of the beauties of PowerShell, is that the cmdlet naming convention is structured in a way that it tells you exactly what it's going to do. Same goes for New-vRNIDataSource. :-)</p>
+<pre><code class="hljs">PS C:\&gt; Get-Help New-vRNIDataSource
+
+NAME
+    New-vRNIDataSource
+
+SYNOPSIS
+    Create new datasources within vRealize<span class="hljs-built_in"> Network </span>Insight <span class="hljs-keyword">to</span> retrieve data <span class="hljs-keyword">from</span>.
+</code></pre>
+<p>There are a few parameters with the <strong>New-vRNIDataSource</strong> cmdlet available. Mostly for providing details on the data source. Let's go through them:</p>
+<p><code>-DataSourceType</code></p>
+<p>A data source type can be one of the following values:</p>
+<ul>
+<li>vcenter</li>
+<li>nsxv *</li>
+<li>ciscoswitch *</li>
+<li>aristaswitch</li>
+<li>dellswitch *</li>
+<li>brocadeswitch</li>
+<li>juniperswitch</li>
+<li>ciscoucs</li>
+<li>hponeview</li>
+<li>hpvcmanager</li>
+<li>checkpointfirewall</li>
+<li>panfirewall</li>
+</ul>
+<p><small>If you provide either nsxv, ciscoswitch or dellswitch as the type, you need to supply specific options for those types.</small></p>
+<p><code>-Username -Password</code></p>
+<p>Credentials to use to log into the data source.</p>
+<p><code>[-IP ] [-FDQN ]</code></p>
+<p>Supply either the IP address or the FDQN (hostname) of the data source, don't supply both.</p>
+<p><code>-CollectorVMId</code></p>
+<p>This needs to be the entity ID of the vRNI collector appliance that will collect data from this source. This entity ID can be retrieved using the cmdlet Get-vRNINodes (example below).</p>
+<p><code>-Nickname</code></p>
+<p>Within vRNI, this data source will be identified with its nickname. It's usually a good idea to configure this with the hostname of the data source.</p>
+<p><code>[-Enabled ]</code></p>
+<p>By default, the data source will be enabled for collecting. You can disable it by providing $False on this parameter.</p>
+<p><code>[-Notes ]</code></p>
+<p>Optional internal notes about the data source. This won’t show up anywhere but at the data source management within vRNI.</p>
+<p><code>[-Connection ]</code></p>
+<p>With every PowervRNI cmdlet, you can supply an optional parameter identifying the vRNI connection you want to work with. This is useful when working with multiple vRNI instances at once. If you just have a single instance, you don't need to use this parameter.</p>
+<h2><a class="anchor" aria-hidden="true" id="nsxv-cisco-amp-dell-switches-specific-options"></a><a href="#nsxv-cisco-amp-dell-switches-specific-options" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>NSXv, Cisco &amp; Dell Switches Specific Options</h2>
+<p>With NSX, Cisco and Dell switches there are specific data source options you need to supply.</p>
+<h3><a class="anchor" aria-hidden="true" id="nsx"></a><a href="#nsx" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>NSX</h3>
+<p><code>-NSXEnableCentralCLI</code></p>
+<p>Do you want to enable collecting NSX Edge information via the NSX Central CLI, or do you want vRNI to directly connect to the NSX Edges: <strong>$True</strong> to use the Central CLI and <strong>$False</strong> to directly connect.</p>
+<p><code>-NSXEnableIPFIX</code></p>
+<p>With <strong>$True</strong> provided, this will enable IPFIX traffic monitoring data coming from NSX to vRNI. <u>Note</u>: this is different than the Netflow data vCenter can send via the VDS.</p>
+<p><code>-NSXvCenterID</code></p>
+<p>The entity ID of the vCenter that is connected to this NSX Manager. This entity ID can be retrieved using the cmdlet Get-vRNINodes (example below).</p>
+<h3><a class="anchor" aria-hidden="true" id="cisco-switches"></a><a href="#cisco-switches" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cisco Switches</h3>
+<p><code>-CiscoSwitchType</code></p>
+<p>Because some Cisco switches have different features, CLIs and different commands to retrieve information, you need to specify what type of Cisco switch you are adding. Here’s a list of options:</p>
+<ul>
+<li>CATALYST_3000</li>
+<li>CATALYST_4500</li>
+<li>CATALYST_6500</li>
+<li>NEXUS_5K</li>
+<li>NEXUS_7K</li>
+<li>NEXUS_9K</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="dell-switches"></a><a href="#dell-switches" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dell Switches</h3>
+<p><code>-DellSwitchType</code></p>
+<p>Dell switches also have differences in features, CLIs and commands to retrieve information, so you also need to specify what type of Dell switch you are adding. Here's a list of options:</p>
+<ul>
+<li>FORCE_10_MXL_10</li>
+<li>POWERCONNECT_8024</li>
+<li>S4048</li>
+<li>Z9100</li>
+<li>S6000</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h2>
+<p>Below is a screenshot of a call to New-vRNIDataSource to add a new vCenter server.</p>
+<p><a href="https://lostdomain.org/wp-content/uploads/2018/01/Screen_Shot_2018-01-21_at_20_48_01.png"><img class="aligncenter size-large wp-image-22338" src="https://lostdomain.org/wp-content/uploads/2018/01/Screen_Shot_2018-01-21_at_20_48_01-1024x232.png" alt="" width="1024" height="232" /></a></p>
+<p>This first looks up the collector entity ID of the collector with the IP address "10.8.x.x" and then uses that entity ID to add a vCenter data source type with.</p>
+<h2><a class="anchor" aria-hidden="true" id="adding-in-bulk"></a><a href="#adding-in-bulk" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding in Bulk</h2>
+<p>If adding one by one isn’t quick enough (or if you have a couple dozen devices to go through), you can also use an example script that I put in the <a href="https://github.com/PowervRNI/powervrni/tree/master/examples" target="_blank" rel="noopener">examples/</a> directory of PowervRNI: <a href="https://github.com/PowervRNI/powervrni/tree/master/examples" target="_blank" rel="noopener">datasource-bulk-import.ps1</a></p>
+<p>This script takes a CSV file as input and runs through that CSV to add multiple data sources. It contains all available parameters as a column and is formatted as follows:</p>
+<pre><code class="hljs"><span class="hljs-selector-tag">DatasourceType</span>;<span class="hljs-selector-tag">IP</span>;<span class="hljs-selector-tag">Username</span>;<span class="hljs-selector-tag">Password</span>;<span class="hljs-selector-tag">Nickname</span>;<span class="hljs-selector-tag">NSX_ENABLE_CENTRAL_CLI</span>;<span class="hljs-selector-tag">NSX_ENABLE_IPFIX</span>;<span class="hljs-selector-tag">NSX_VCENTER_NICKNAME</span>;<span class="hljs-selector-tag">CISCO_SWITCHTYPE</span>;<span class="hljs-selector-tag">DELL_SWITCHTYPE</span>
+<span class="hljs-selector-tag">vcenter</span>;172<span class="hljs-selector-class">.16</span><span class="hljs-selector-class">.0</span><span class="hljs-selector-class">.11</span>;<span class="hljs-selector-tag">administrator</span>@<span class="hljs-keyword">vsphere</span>.<span class="hljs-keyword">local</span>;<span class="hljs-selector-tag">MyPassword</span>;<span class="hljs-selector-tag">vcenter</span><span class="hljs-selector-class">.lab</span><span class="hljs-selector-class">.local</span>;<span class="hljs-selector-tag">onlyusedforNSX</span>;<span class="hljs-selector-tag">onlyusedforNSX</span>;<span class="hljs-selector-tag">onlyusedforNSX</span>;<span class="hljs-selector-tag">onlyusedforCisco</span>;<span class="hljs-selector-tag">onlyusedforDell</span>
+</code></pre>
+<p><small>* Yes, it's technically not a CSV as I used ';' for the separations. But this way Excel can read it into columns. ;-)</small></p>
+<p>The column names represent the cmdlet parameters. This also means that for some data source types, not all columns are used. Hence the "onlyusedforNSX", "onlyusedforCisco" and "onlyusedforDell" values in the line for a vCenter data source.</p>
+<h3><a class="anchor" aria-hidden="true" id="usage"></a><a href="#usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Usage</h3>
+<p>Once you have the CSV in order, you can run the script as follows:</p>
+<pre><code class="hljs css language-PS C:&gt; ./datasource-bulk-import.ps1 -DatasourcesCSV ./datasource-bulk-import.csv">[<span class="hljs-number">01</span>/<span class="hljs-number">15</span>/<span class="hljs-number">2018</span> <span class="hljs-number">17</span>:<span class="hljs-number">28</span>:<span class="hljs-number">04</span>] Adding a vcenter <span class="hljs-keyword">Data</span> Source with IP <span class="hljs-number">172.16</span>.<span class="hljs-number">0.11</span>..
+[<span class="hljs-number">01</span>/<span class="hljs-number">15</span>/<span class="hljs-number">2018</span> <span class="hljs-number">17</span>:<span class="hljs-number">28</span>:<span class="hljs-number">04</span>] Adding a nsxv <span class="hljs-keyword">Data</span> Source with IP <span class="hljs-number">172.16</span>.<span class="hljs-number">0.12</span>..
+[<span class="hljs-number">01</span>/<span class="hljs-number">15</span>/<span class="hljs-number">2018</span> <span class="hljs-number">17</span>:<span class="hljs-number">28</span>:<span class="hljs-number">05</span>] Adding a ciscoswitch <span class="hljs-keyword">Data</span> Source with IP <span class="hljs-number">172.16</span>.<span class="hljs-number">0.13</span>..
+</code></pre>
+<p>That's it! Let me know if you have any questions. PowervRNI can be found on <a href="https://github.com/PowervRNI/powervrni" target="_blank" rel="noopener">GitHub</a> and on <a href="https://twitter.com/PowervRNI" target="_blank" rel="noopener">twitter</a> for the latest news.</p>
+</span></div></article></div><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2018/01/02/introducing">Introducing PowervRNI</a></h1><p class="post-meta">January 2, 2018</p><div class="authorBlock"><p class="post-authorName"><a href="https://twitter.com/smitmartijn" target="_blank" rel="noreferrer noopener">Martijn Smit</a></p></div></header><article class="post-content"><div><span><p>I am excited to introduce <a href="https://github.com/PowervRNI/powervrni" target="_blank" rel="noopener">PowervRNI</a> to the world! In the <a href="https://docs.vmware.com/en/VMware-vRealize-Network-Insight/3.6/rn/vrealize-network-insight-36-release-notes.html" target="_blank" rel="noopener">3.6 release</a> of vRealize Network Insight (vRNI) in November, there was a public API added. Through this API, you can offload certain tedious tasks like creating applications and managing data sources. I was using the private API for a couple of things already, like <a href="https://lostdomain.org/2016/12/vrealize-network-insight-bulk-import-data-sources/" target="_blank" rel="noopener">importing data sources</a>. With the release of the public API, I could move those things to use the public (and supported) API. Ever since then, I've been working on <a href="https://github.com/PowervRNI/powervrni" target="_blank" rel="noopener">PowervRNI</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="powervrni"></a><a href="#powervrni" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>PowervRNI</h2>
+<p>The first release of PowervRNI is on <a href="https://github.com/PowervRNI/powervrni" target="_blank" rel="noopener">GitHub here</a>. With this PowerShell module which talks to the public API of vRNI, you can grab information about pretty much any entity from vRNI (VM, Host, Network, Problems, Firewall rules, etc, etc) and you can do <strong>application</strong> and <strong>data source</strong> management.</p>
+<p>Not all API calls to vRNI are supported just yet; I decided to focus on the obvious tasks and go from there. Please let me know if there's anything you'd like to see in there!</p>
+<p><a href="https://github.com/PowervRNI/powervrni" target="_blank" rel="noopener"><img class="aligncenter wp-image-18166 size-full" src="https://lostdomain.org/wp-content/uploads/2016/01/gitHub-download-button.png" alt="PowervRNI" width="230" height="70" /></a></p>
+<h2><a class="anchor" aria-hidden="true" id="getting-started"></a><a href="#getting-started" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Getting Started</h2>
+<p>Right now, PowervRNI is a simple two-file module. To install it, download it to a PowerShell enabled machine and load it. PowervRNI is supported for PowerShell Desktop &amp; Core, so Windows, MacOS and Linux. Here is an example on how to load it:</p>
+<pre><code class="hljs">PS C:<span class="hljs-string">\&gt;</span> Invoke-WebRequest -Uri <span class="hljs-string">"https://raw.githubusercontent.com/powervrni/powervrni/master/PowervRNI.psm1"</span> -OutFile <span class="hljs-string">"PowervRNI.psm1"</span>
+PS C:<span class="hljs-string">\&gt;</span> Invoke-WebRequest -Uri <span class="hljs-string">"https://raw.githubusercontent.com/powervrni/powervrni/master/PowervRNI.psd1"</span> -OutFile <span class="hljs-string">"PowervRNI.psd1"</span>
+PS C:<span class="hljs-string">\&gt;</span> Import-Module .<span class="hljs-string">\PowervRNI.psd1</span>
+</code></pre>
+<p>After importing the module into your PowerShell session, you should first look at the available cmdlets using this command:</p>
+<pre><code class="hljs">PS C:\&gt; Get-Command -<span class="hljs-keyword">Module</span> PowervRNI
+
+CommandType     <span class="hljs-keyword">Name</span>                                               Version    Source
+-----------     ----                                               -------    ------
+<span class="hljs-function"><span class="hljs-keyword">Function</span></span>        Connect-vRNIServer                                 <span class="hljs-number">1.0</span>        PowervRNI
+<span class="hljs-function"><span class="hljs-keyword">Function</span></span>        Disable-vRNIDataSource                             <span class="hljs-number">1.0</span>        PowervRNI
+...etc...
+</code></pre>
+<p>After familiarising yourself with the available cmdlets, connect to your vRNI API and start using the cmdlets to work the API.</p>
+<p><code>PS C:\&gt; Connect-vRNIServer -Server vrni-platform.lab</code></p>
+<p>All cmdlets have a documentation header, which means you can do a Get-Help lookup on them, including examples of how to use it:</p>
+<pre><code class="hljs">PS C:\&gt; <span class="hljs-keyword">Get</span>-Help <span class="hljs-built_in">New</span>-vRNIDataSource
+PS C:\&gt; <span class="hljs-keyword">Get</span>-Help <span class="hljs-built_in">New</span>-vRNIDataSource -examples
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="examples"></a><a href="#examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h2>
+<p>I will be posting examples on how to use PowervRNI in the near future to expand the documentation and making it easier to get started. First example will be a bulk import of data sources.</p>
+<p>Let me know what you think, poke me on <a href="https://twitter.com/smitmartijn" target="_blank" rel="noopener">twitter</a> or <a href="https://github.com/PowervRNI/powervrni/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<p> </p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/powervrni-logo.png" alt="PowervRNI" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/getting-started.html">Getting Started</a><a href="/docs/en/examples.html">Examples</a><a href="/docs/en/videos.html">Videos</a></div><div><h5>Community</h5><div class="social"><a href="https://twitter.com/powervrni" class="twitter-follow-button">Follow @powervrni</a></div></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/powervrni/powervrni">GitHub</a></div></section><section class="copyright">Copyright © 2020 Martijn Smit</section></footer></div><script>window.twttr=(function(d,s, id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js, fjs);t._e = [];t.ready = function(f) {t._e.push(f);};return t;}(document, 'script', 'twitter-wjs'));</script></body></html>
