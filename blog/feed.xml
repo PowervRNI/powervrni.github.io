@@ -5,14 +5,14 @@
         <link>https://powervrni.github.io/blog</link>
         <description>The best place to stay up-to-date with the latest PowervRNI news and events.</description>
         <lastBuildDate>Thu, 09 Jan 2020 06:00:00 GMT</lastBuildDate>
-        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
-        <generator>Feed for Node.js</generator>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
         <image>
             <title>PowervRNI Blog</title>
             <url>https://powervrni.github.io/img/powervrni-logo.png</url>
             <link>https://powervrni.github.io/blog</link>
         </image>
-        <copyright>Copyright © 2020 Martijn Smit</copyright>
+        <copyright>Copyright © 2021 Martijn Smit</copyright>
         <item>
             <title><![CDATA[Adding 100 Switches to vRealize Network Insight in 20 minutes]]></title>
             <link>https://powervrni.github.io/blog/2020/01/09/100-switches.html</link>

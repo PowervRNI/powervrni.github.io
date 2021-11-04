@@ -2,18 +2,17 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://powervrni.github.io/blog</id>
     <title>PowervRNI Blog</title>
-    <updated>2020-01-09T06:00:00Z</updated>
-    <generator>Feed for Node.js</generator>
+    <updated>2020-01-09T06:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://powervrni.github.io/blog"/>
     <subtitle>The best place to stay up-to-date with the latest PowervRNI news and events.</subtitle>
     <logo>https://powervrni.github.io/img/powervrni-logo.png</logo>
-    <rights>Copyright © 2020 Martijn Smit</rights>
+    <rights>Copyright © 2021 Martijn Smit</rights>
     <entry>
         <title type="html"><![CDATA[Adding 100 Switches to vRealize Network Insight in 20 minutes]]></title>
         <id>https://powervrni.github.io/blog/2020/01/09/100-switches.html</id>
-        <link href="https://powervrni.github.io/blog/2020/01/09/100-switches.html">
-        </link>
-        <updated>2020-01-09T06:00:00Z</updated>
+        <link href="https://powervrni.github.io/blog/2020/01/09/100-switches.html"/>
+        <updated>2020-01-09T06:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>Adding a bunch of data sources to <a href="https://lostdomain.org/tag/vrealize-network-insight/" target="_blank" rel="noopener noreferrer">vRealize Network Insight</a> can be tedious, especially when the number of data sources goes into the 100s. This is one of the reasons why <a href="https://github.com/powervrni/powervrni" target="_blank" rel="noopener noreferrer">PowervRNI</a> exists, and it's been helping organizations to add their entire network...</p>]]></summary>
         <author>
             <name>Martijn Smit</name>
@@ -23,9 +22,8 @@
     <entry>
         <title type="html"><![CDATA[PowervRNI 1.7: What's New?]]></title>
         <id>https://powervrni.github.io/blog/2019/11/19/whatsnew-17.html</id>
-        <link href="https://powervrni.github.io/blog/2019/11/19/whatsnew-17.html">
-        </link>
-        <updated>2019-11-19T06:00:00Z</updated>
+        <link href="https://powervrni.github.io/blog/2019/11/19/whatsnew-17.html"/>
+        <updated>2019-11-19T06:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>Version 1.7 of <a href="//github.com/powervrni/powervrni">PowervRNI</a> was released yesterday, and this post covers what's new in this version. If you're not familiar with <a href="//github.com/powervrni/powervrni">PowervRNI</a>, it is a PowerShell module that you can use to manage <a href="//vmware.com/go/vrni">vRealize Network Insight</a>. From adding data sources &amp; app...</p>]]></summary>
         <author>
             <name>Martijn Smit</name>
@@ -35,9 +33,8 @@
     <entry>
         <title type="html"><![CDATA[Integrating ServiceNow with Network Insight]]></title>
         <id>https://powervrni.github.io/blog/2018/11/19/servicenow.html</id>
-        <link href="https://powervrni.github.io/blog/2018/11/19/servicenow.html">
-        </link>
-        <updated>2018-11-19T06:00:00Z</updated>
+        <link href="https://powervrni.github.io/blog/2018/11/19/servicenow.html"/>
+        <updated>2018-11-19T06:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>In a previous post, <a href="https://lostdomain.org/2018/11/08/integrating-vrealize-automation-with-network-insight/">Integrating vRealize Automation with Network Insight</a>, I covered how greenfield applications can be automatically pushed into vRealize Network Insight to provide application context with the analytics of Network Insight. This post ...</p>]]></summary>
         <author>
             <name>Martijn Smit</name>
@@ -47,9 +44,8 @@
     <entry>
         <title type="html"><![CDATA[Using PowervRNI to connect to Network Insight SaaS]]></title>
         <id>https://powervrni.github.io/blog/2018/10/13/vrnicloud.html</id>
-        <link href="https://powervrni.github.io/blog/2018/10/13/vrnicloud.html">
-        </link>
-        <updated>2018-10-13T06:00:00Z</updated>
+        <link href="https://powervrni.github.io/blog/2018/10/13/vrnicloud.html"/>
+        <updated>2018-10-13T06:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>VMware is pretty heavily invested in the cloud. Not only to manage your cloud environments, but also products as Software-as-a-Service offerings, next to the regular on-premises offerings. At the time of this post, there are 19 VMware products that y...</p>]]></summary>
         <author>
             <name>Martijn Smit</name>
@@ -59,9 +55,8 @@
     <entry>
         <title type="html"><![CDATA[Using PowervRNI to configure SNMP settings]]></title>
         <id>https://powervrni.github.io/blog/2018/09/03/snmp.html</id>
-        <link href="https://powervrni.github.io/blog/2018/09/03/snmp.html">
-        </link>
-        <updated>2018-09-03T06:00:00Z</updated>
+        <link href="https://powervrni.github.io/blog/2018/09/03/snmp.html"/>
+        <updated>2018-09-03T06:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>Version 1.2 of PowervRNI was just released and it contains 2 new cmdlets:&nbsp;</p> <ul><li>Get-vRNIDataSourceSNMPConfig</li><li>Set-vRNIDataSourceSNMPConfig</li></ul> <p>You can use these cmdlets to see and update SNMP configuration on specific data sources. All Arista, Brocade, Cis...</p>]]></summary>
         <author>
             <name>Martijn Smit</name>
@@ -71,9 +66,8 @@
     <entry>
         <title type="html"><![CDATA[PowervRNI is now on PowerShell Gallery]]></title>
         <id>https://powervrni.github.io/blog/2018/03/05/gallery.html</id>
-        <link href="https://powervrni.github.io/blog/2018/03/05/gallery.html">
-        </link>
-        <updated>2018-03-05T06:00:00Z</updated>
+        <link href="https://powervrni.github.io/blog/2018/03/05/gallery.html"/>
+        <updated>2018-03-05T06:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>PowerShell is about making things easy and consumable. Same goes for <a href="https://lostdomain.org/2018/01/02/introducing-powervrni/">PowervRNI</a>, making repetitive tasks in vRealize Network Insight easier and make it possible to extract information from vRNI.</p> <p>It's not that easy to load a custom module into PowerShe...</p>]]></summary>
         <author>
             <name>Martijn Smit</name>
@@ -83,9 +77,8 @@
     <entry>
         <title type="html"><![CDATA[Using PowervRNI to Quickly Add Applications]]></title>
         <id>https://powervrni.github.io/blog/2018/02/12/applications.html</id>
-        <link href="https://powervrni.github.io/blog/2018/02/12/applications.html">
-        </link>
-        <updated>2018-02-12T06:00:00Z</updated>
+        <link href="https://powervrni.github.io/blog/2018/02/12/applications.html"/>
+        <updated>2018-02-12T06:00:00.000Z</updated>
         <summary type="html"><![CDATA[<h2><a class="anchor" aria-hidden="true" id="applications"></a><a href="#applications" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"/></svg></a>Applications</h2> <p>Introduced in vRealize Network Insight 3.2 in the begin of 2017, Applications are logical containers which can contain the structure of applications (including tiering). You can use these application containers to better visualize what n...</p>]]></summary>
         <author>
             <name>Martijn Smit</name>
@@ -95,9 +88,8 @@
     <entry>
         <title type="html"><![CDATA[Using PowervRNI to Quickly Add Data Sources]]></title>
         <id>https://powervrni.github.io/blog/2018/01/23/datasources.html</id>
-        <link href="https://powervrni.github.io/blog/2018/01/23/datasources.html">
-        </link>
-        <updated>2018-01-23T06:00:00Z</updated>
+        <link href="https://powervrni.github.io/blog/2018/01/23/datasources.html"/>
+        <updated>2018-01-23T06:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>This is the first post in a series on how to use <a href="https://lostdomain.org/2018/01/introducing-powervrni/">PowervRNI</a> to manage your vRealize Network Insight environment. Starting with <a href="https://docs.vmware.com/en/VMware-Network-Insight/services/Using-VMware-Network-Insight/GUID-66937AC9-D552-4E86-A9D9-5EB11F238BFC.html" target="_blank" rel="noopener">Data Sources</a>.</p> <h2><a class="anchor" aria-hidden="true" id="data-sources"></a><a href="#data-sources" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"/></svg></a>Data Sources</h2> <p>Brief background; data sources in vRNI are endpoints from which vRNI retrieves information from. ...</p>]]></summary>
         <author>
             <name>Martijn Smit</name>
@@ -107,9 +99,8 @@
     <entry>
         <title type="html"><![CDATA[Introducing PowervRNI]]></title>
         <id>https://powervrni.github.io/blog/2018/01/02/introducing.html</id>
-        <link href="https://powervrni.github.io/blog/2018/01/02/introducing.html">
-        </link>
-        <updated>2018-01-02T06:00:00Z</updated>
+        <link href="https://powervrni.github.io/blog/2018/01/02/introducing.html"/>
+        <updated>2018-01-02T06:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>I am excited to introduce <a href="https://github.com/PowervRNI/powervrni" target="_blank" rel="noopener">PowervRNI</a> to the world! In the <a href="https://docs.vmware.com/en/VMware-vRealize-Network-Insight/3.6/rn/vrealize-network-insight-36-release-notes.html" target="_blank" rel="noopener">3.6 release</a> of vRealize Network Insight (vRNI) in November, there was a public API added. Through this API, you can offload certain tedious tasks like creating applications and managing data so...</p>]]></summary>
         <author>
             <name>Martijn Smit</name>
